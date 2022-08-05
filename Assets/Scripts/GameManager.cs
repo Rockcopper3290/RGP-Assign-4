@@ -135,4 +135,12 @@ public class GameManager : MonoBehaviour
         // Increment the Game Time
         this.gameTime += Time.deltaTime;
     }
+    public void LoadGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
