@@ -139,8 +139,13 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
     public void Exit()
     {
         Application.Quit();
     }
+       
 }
