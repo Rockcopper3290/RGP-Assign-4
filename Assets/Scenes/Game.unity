@@ -3212,7 +3212,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1120}
   m_LocalScale: {x: 79.6944, y: 79.6944, z: 79.6944}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 289165754}
   m_RootOrder: 1
@@ -3368,10 +3368,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 135bffad1d85dd7478583ee5ea759a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: {x: 4, y: 4, z: 1}
-  repeatable: 1
-  speed: 1
-  duration: 5
+  maxScale: {x: 150, y: 150, z: 1}
+  repeatable: 0
+  speed: 2
+  duration: 60
+  elapsedTime: 0
 --- !u!1 &1926608139
 GameObject:
   m_ObjectHideFlags: 0

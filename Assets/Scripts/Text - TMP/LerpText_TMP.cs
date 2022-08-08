@@ -15,7 +15,10 @@ public class LerpText_TMP : MonoBehaviour
     public Vector3 maxScale;
     public bool repeatable;
     public float speed = 2f;
-    public float duration = 5f;
+    public float duration = 2f;
+    public float elapsedTime;
+    bool isGrowing;
+
 
     // use this for initialization
     private void Start()
@@ -25,28 +28,55 @@ public class LerpText_TMP : MonoBehaviour
     }
     private void Update()
     {
-        //textMesh.ForceMeshUpdate();
-        //mesh = textMesh.mesh;
-        //vertices = mesh.vertices;
+        if (elapsedTime >= 1)
+            elapsedTime = 0;
 
-        //Lerp up scale
-        repeatLerp(minScale, maxScale, duration);
+        if (transform.localScale == minScale)
+            isGrowing = true;
+        else if (transform.localScale == maxScale)
+            isGrowing = false;
 
-        //lerp down scale
-        repeatLerp(maxScale, minScale, duration);
+
+        if (isGrowing)
+        {
+
+            lerpZoom_Score(minScale, maxScale, elapsedTime);
+
+        }
+        else if (!isGrowing)
+        {
+            lerpZoom_Score(maxScale, minScale, elapsedTime);
+        }
+
+
+        {
+            /*
+            //textMesh.ForceMeshUpdate();
+            //mesh = textMesh.mesh;
+            //vertices = mesh.vertices;
+
+            //Lerp up scale
+            repeatLerp(minScale, maxScale, duration);
+
+            //lerp down scale
+            repeatLerp(maxScale, minScale, duration);
+            */
+        }
 
     }
 
 
-    public void repeatLerp(Vector3 startVector, Vector3 newVector, float time)
+    public void lerpZoom_Score(Vector3 startVector, Vector3 newVector, float elapsedTime)
     {
-        float objectScaledSize = 0.0f;
-        float rate = (1.0f / time) * speed;
-        while (objectScaledSize < 1.0f)
+        while (elapsedTime < duration)
         {
-            objectScaledSize += Time.deltaTime * rate;
-            gameObject.transform.localScale = Vector3.Lerp(startVector, newVector, time);
+            elapsedTime += Time.deltaTime;
+            float percentageCompleted = elapsedTime / duration;
+
+            transform.localScale = Vector3.Lerp(startVector, newVector, percentageCompleted);
         }
+        //====================================================================================
+
 
     }
 }
