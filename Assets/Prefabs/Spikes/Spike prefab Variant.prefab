@@ -157,6 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3727ff265f1f9aa49a37d30a84f0e682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerMovement: {fileID: 0}
-  initialSpikeSpeed: 10
-  spikeLifetime: 10
+  spikeColours:
+  - {fileID: 2100000, guid: 47fcb8db1a1ced54a919266d996a1cda, type: 2}
+  - {fileID: 2100000, guid: 8407245eb4c70404e81bee0180cd4eb7, type: 2}

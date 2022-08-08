@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3194,6 +3194,7 @@ GameObject:
   - component: {fileID: 1856763594}
   - component: {fileID: 1856763596}
   - component: {fileID: 1856763595}
+  - component: {fileID: 1856763597}
   m_Layer: 0
   m_Name: Test Score
   m_TagString: Untagged
@@ -3211,7 +3212,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1120}
   m_LocalScale: {x: 79.6944, y: 79.6944, z: 79.6944}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 289165754}
   m_RootOrder: 1
@@ -3355,6 +3356,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1856763597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856763593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135bffad1d85dd7478583ee5ea759a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxScale: {x: 4, y: 4, z: 1}
+  repeatable: 1
+  speed: 1
+  duration: 5
 --- !u!1 &1926608139
 GameObject:
   m_ObjectHideFlags: 0
