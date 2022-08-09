@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameScreen : MonoBehaviour
 {
+    [SerializeField] private GameObject _pauseMenu;
+    [SerializeField] private GameObject _pauseButton;
+
     // Set in Unity Inspector
     public TMP_Text scoreText;
     public TMP_Text clickToStartText;
@@ -28,6 +32,27 @@ public class GameScreen : MonoBehaviour
     {
         this.gameManager = gameManager;
         this.playerManager = gameManager.GetPlayerManager();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0.0f;
+        _pauseMenu.SetActive(true);
+        _pauseButton.SetActive(false);
+        AudioListener.pause = true;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1.0f;
+        _pauseMenu?.SetActive(false);
+        _pauseButton?.SetActive(true);
+        AudioListener.pause = false;
     }
 
     public void GameStart()

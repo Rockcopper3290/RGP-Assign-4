@@ -28,6 +28,7 @@ public class LerpText_TMP : MonoBehaviour
     }
     private void Update()
     {
+        /*
         if (elapsedTime >= 1)
             elapsedTime = 0;
 
@@ -47,7 +48,7 @@ public class LerpText_TMP : MonoBehaviour
         {
             lerpZoom_Score(maxScale, minScale, elapsedTime);
         }
-
+        /*
 
         {
             /*
@@ -65,6 +66,7 @@ public class LerpText_TMP : MonoBehaviour
 
     }
 
+/*
 
     public void lerpZoom_Score(Vector3 startVector, Vector3 newVector, float elapsedTime)
     {
@@ -80,3 +82,5 @@ public class LerpText_TMP : MonoBehaviour
 
     }
 }
+
+*/

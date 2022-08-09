@@ -52,7 +52,7 @@ public class Spike : MonoBehaviour
 
         if (this.playerManager.PlayerIsInvincible() == true && spikeRenderer.sharedMaterial == spikeColours[0])
         {
-            //change colour to green
+            //change colour to transparent green
             spikeRenderer.sharedMaterial = spikeColours[1];
         }
         else if (this.playerManager.PlayerIsInvincible() == false && spikeRenderer.sharedMaterial == spikeColours[1])
