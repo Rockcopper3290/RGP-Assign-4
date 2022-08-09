@@ -8,6 +8,17 @@ public class PlayerManager : MonoBehaviour
     public float moveSpeed = 20.0f;
     public float invincibleTime = 5.0f;
 
+    // Text pulse when pickup collected
+    // public TMP_Text scoreText;
+
+    //Vector3 minScale;
+    //public Vector3 maxScale;
+    //public bool repeatable;
+    //public float speed = 2f;
+    //public float duration = 2f;
+    //public float elapsedTime;
+    //bool isGrowing;
+
     // Sounds, Set In Unity Inspector
     public AudioSource coinSound;
     public AudioSource invincibleSound;
@@ -45,6 +56,8 @@ public class PlayerManager : MonoBehaviour
     {
         // Components
         this.playerRenderer = this.GetComponent<Renderer>();
+
+        minScale = transform.localScale;
     }
 
     public void SetGameManager(GameManager gameManager)
@@ -103,6 +116,7 @@ public class PlayerManager : MonoBehaviour
 
             this.coinScore += PlayerManager.coinValue;
             this.coinSound.Play();
+
         }
        
         if (collision.gameObject.tag == "Invincible")
