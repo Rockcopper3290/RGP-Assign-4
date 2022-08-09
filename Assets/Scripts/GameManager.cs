@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     // Game Status
     private bool gameRunning = false;   // Is the game running
+    private bool gamePaused = false;    // Is the game paused
     private float gameTime;             // Time the game is running
 
     private void Awake() {
@@ -68,6 +69,11 @@ public class GameManager : MonoBehaviour
         return this.gameRunning;
     }
 
+    public bool GamePaused()
+    {
+        return this.gamePaused;
+    }
+
     public float GameTime()
     {
         return this.gameTime;
@@ -85,35 +91,69 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
-        this.gameScreen.GameStart();
-        this.playerManager.GameStart();
-        this.spikeManager.GameStart();
-        this.pickUpManager.GameStart();
+        if (!this.gameRunning)
+        {
+            // Ensure Time is Running
+            Time.timeScale = 1.0f;
 
-        this.gameRunning = true;
-        this.gameTime = 0.0f;
+            // Ensure AudioListener is Running
+            AudioListener.pause = false;
 
-        this.backgroundMusic.Play();
+            this.gameScreen.GameStart();
+            this.playerManager.GameStart();
+            this.spikeManager.GameStart();
+            this.pickUpManager.GameStart();
+
+            this.gameRunning = true;
+            this.gameTime = 0.0f;
+
+            this.backgroundMusic.Play();
+        }
+    }
+
+    public void GamePause()
+    {
+        if (this.gameRunning)
+        {
+            this.gamePaused = true;
+
+            Time.timeScale = 0.0f;
+            AudioListener.pause = true;
+        }
+    }
+
+    public void GameResume()
+    {
+        if (this.gameRunning)
+        {
+            this.gamePaused = false;
+
+            Time.timeScale = 1.0f;
+            AudioListener.pause = false;
+        }
     }
 
     public void GameOver()
     {
-        this.gameRunning = false;
+        if (this.gameRunning)
+        {
+            this.gameRunning = false;
 
-        this.playerManager.GameOver();
-        this.spikeManager.GameOver();
-        this.pickUpManager.GameOver();
+            this.playerManager.GameOver();
+            this.spikeManager.GameOver();
+            this.pickUpManager.GameOver();
 
-        this.backgroundMusic.Stop();
+            this.backgroundMusic.Stop();
 
-        // Update High Score
-        if (GameScore() > PlayerPrefs.GetInt("highscore"))
-            PlayerPrefs.SetInt("highscore", GameScore());
+            // Update High Score
+            if (GameScore() > PlayerPrefs.GetInt("highscore"))
+                PlayerPrefs.SetInt("highscore", GameScore());
 
-        // Lauch Game Over Scene
-        GameOverData.score = GameScore();
-        GameOverData.highScore = PlayerPrefs.GetInt("highscore");
-        SceneManager.LoadScene("GameOver");
+            // Lauch Game Over Scene
+            GameOverData.score = GameScore();
+            GameOverData.highScore = PlayerPrefs.GetInt("highscore");
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
     // Start is called before the first frame update
@@ -125,7 +165,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameRunning)
+        if (!this.gameRunning)
         {
             if (Input.GetButtonDown("Jump"))
                 GameStart();
@@ -133,8 +173,11 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // Increment the Game Time
-        this.gameTime += Time.deltaTime;
+        if (!this.gamePaused)
+        {
+            // Increment the Game Time
+            this.gameTime += Time.deltaTime;
+        }
     }
   
 }

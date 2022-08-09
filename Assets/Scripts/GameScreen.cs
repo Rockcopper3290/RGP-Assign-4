@@ -39,34 +39,10 @@ public class GameScreen : MonoBehaviour
         SceneManager.LoadScene("StartMenu");
     }
 
-    public void PauseGame()
-    {
-        Time.timeScale = 0.0f;
-        AudioListener.pause = true;
-
-        _pauseMenu.SetActive(true);
-        _pauseButton.SetActive(false);
-    }
-
-    public void ResumeGame()
-    {
-        Time.timeScale = 1.0f;
-        AudioListener.pause = false;
-
-        _pauseMenu?.SetActive(false);
-        _pauseButton?.SetActive(true);
-    }
-
     public void GameStart()
     {
         if (gameManager.GameRunning())
             return;
-
-        // Ensure Time is Running
-        Time.timeScale = 1.0f;
-
-        // Ensure AudioListener is Running
-        AudioListener.pause = false;
 
         // Set Pause Menu
         _pauseMenu?.SetActive(false);
@@ -84,6 +60,22 @@ public class GameScreen : MonoBehaviour
         // Hide Display PickUps
         coin.GetComponent<Renderer>().enabled = false;
         invincible.GetComponent<Renderer>().enabled = false;
+    }
+
+    public void GamePause()
+    {
+        this.gameManager.GamePause();
+
+        _pauseMenu.SetActive(true);
+        _pauseButton.SetActive(false);
+    }
+
+    public void GameResume()
+    {
+        this.gameManager.GameResume();
+
+        _pauseMenu?.SetActive(false);
+        _pauseButton?.SetActive(true);
     }
 
     public void GameOver()
