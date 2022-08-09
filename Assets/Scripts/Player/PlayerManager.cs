@@ -57,7 +57,7 @@ public class PlayerManager : MonoBehaviour
         // Components
         this.playerRenderer = this.GetComponent<Renderer>();
 
-        minScale = transform.localScale;
+        //minScale = transform.localScale;
     }
 
     public void SetGameManager(GameManager gameManager)
