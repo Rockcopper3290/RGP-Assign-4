@@ -1436,7 +1436,6 @@ GameObject:
   - component: {fileID: 289165752}
   - component: {fileID: 289165751}
   - component: {fileID: 289165757}
-  - component: {fileID: 289165758}
   m_Layer: 0
   m_Name: Game Screen(UI)
   m_TagString: Untagged
@@ -1546,6 +1545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8513971c3b18c4a91cf40ea2928d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pauseMenu: {fileID: 167709826}
+  _pauseButton: {fileID: 1926608139}
   scoreText: {fileID: 1856763595}
   clickToStartText: {fileID: 2050873872}
   instructionsText: {fileID: 104927688}
@@ -1555,20 +1556,6 @@ MonoBehaviour:
   invincible: {fileID: 9004868758738055204}
   coinRotationPerSecond: {x: 0, y: -180, z: 0}
   invincibleRotationPerSecond: {x: 0, y: -180, z: 0}
---- !u!114 &289165758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 289165750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 723c566b7d0c6e74e85789c0e2eea968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pauseMenu: {fileID: 167709826}
-  _pauseButton: {fileID: 1926608139}
 --- !u!1 &388417980
 GameObject:
   m_ObjectHideFlags: 0
@@ -2118,9 +2105,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 443916016}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: QuitToMenu
+      - m_Target: {fileID: 289165757}
+        m_TargetAssemblyTypeName: GameScreen, Assembly-CSharp
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3457,8 +3444,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 289165758}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+      - m_Target: {fileID: 289165757}
+        m_TargetAssemblyTypeName: GameScreen, Assembly-CSharp
         m_MethodName: PauseGame
         m_Mode: 1
         m_Arguments:
@@ -3591,8 +3578,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 289165758}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+      - m_Target: {fileID: 289165757}
+        m_TargetAssemblyTypeName: GameScreen, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:

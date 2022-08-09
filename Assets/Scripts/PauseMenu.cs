@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
     public void PauseGame()
     {
         Time.timeScale = 0f;
@@ -19,6 +20,7 @@ public class PauseMenu : MonoBehaviour
         _pauseButton.SetActive(false);
         AudioListener.pause = true;
     }
+
     public void ResumeGame()
     {
         Time.timeScale = 1;
@@ -26,4 +28,5 @@ public class PauseMenu : MonoBehaviour
         _pauseButton?.SetActive(true);
         AudioListener.pause = false;
     }
+
 }
