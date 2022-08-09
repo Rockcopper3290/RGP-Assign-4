@@ -42,23 +42,35 @@ public class GameScreen : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0.0f;
+        AudioListener.pause = true;
+
         _pauseMenu.SetActive(true);
         _pauseButton.SetActive(false);
-        AudioListener.pause = true;
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1.0f;
+        AudioListener.pause = false;
+
         _pauseMenu?.SetActive(false);
         _pauseButton?.SetActive(true);
-        AudioListener.pause = false;
     }
 
     public void GameStart()
     {
         if (gameManager.GameRunning())
             return;
+
+        // Ensure Time is Running
+        Time.timeScale = 1.0f;
+
+        // Ensure AudioListener is Running
+        AudioListener.pause = false;
+
+        // Set Pause Menu
+        _pauseMenu?.SetActive(false);
+        _pauseButton.SetActive(true);
 
         // Show Score
         scoreText.enabled = true;
