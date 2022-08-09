@@ -8,17 +8,6 @@ public class PlayerManager : MonoBehaviour
     public float moveSpeed = 20.0f;
     public float invincibleTime = 5.0f;
 
-    // Text pulse when pickup collected
-    // public TMP_Text scoreText;
-
-    //Vector3 minScale;
-    //public Vector3 maxScale;
-    //public bool repeatable;
-    //public float speed = 2f;
-    //public float duration = 2f;
-    //public float elapsedTime;
-    //bool isGrowing;
-
     // Sounds, Set In Unity Inspector
     public AudioSource coinSound;
     public AudioSource invincibleSound;
@@ -44,6 +33,8 @@ public class PlayerManager : MonoBehaviour
 
     private int coinScore;
     private int spikeScore;
+
+    public TweenyScore tweenyScore;
 
     // Game Manager
     private GameManager gameManager;
@@ -107,16 +98,23 @@ public class PlayerManager : MonoBehaviour
     {
 
     }
-       
+
+    private void OnHitCoin(Collision collision)
+    {
+        this.pickUpManager.DestroyPickUp(collision.gameObject);
+
+        this.coinScore += PlayerManager.coinValue;
+        this.coinSound.Play();
+
+        tweenyScore.BoingScore();
+
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Coin")
         {
-            this.pickUpManager.DestroyPickUp(collision.gameObject);
-
-            this.coinScore += PlayerManager.coinValue;
-            this.coinSound.Play();
-
+            OnHitCoin(collision);
         }
        
         if (collision.gameObject.tag == "Invincible")
@@ -125,6 +123,7 @@ public class PlayerManager : MonoBehaviour
 
             this.invincibleTimeRemaining = this.invincibleTime;
             this.invincibleSound.Play();
+
 
             if (!this.isInvincible)
             {
@@ -142,6 +141,7 @@ public class PlayerManager : MonoBehaviour
             {
                 this.spikeScore += PlayerManager.spikeValue;
                 spikeDestroySound.Play();
+                tweenyScore.BoingScore();
             }
         }
     }

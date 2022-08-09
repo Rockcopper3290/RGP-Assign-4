@@ -7,9 +7,9 @@ using DG.Tweening;
 public class TweenyScore : MonoBehaviour
 {
     // How much should text grow when it starts boinging (30=30%)
-    public float boingStartScaleUp = 30.0f;
+    public float boingStartScaleUp = 20.0f;
     // How long does the text take to elastic-tween back to starting size
-    public float boingDuration = 0.7f;
+    public float boingDuration = 0.8f;
     Vector3 minScale;
     private Vector3 boingStartScale;        // thing pops to this scale at start of boing
     private Vector3 tweenedScale;   // vector being updated by DoTween
@@ -34,18 +34,17 @@ public class TweenyScore : MonoBehaviour
             transform.localScale = tweenedScale; 
         } else
         {
-            if (Input.GetButtonDown("Jump"))
-            {
-                isBoinging = true;
-                BoingScore();
-            }
+            //if (Input.GetButtonDown("Jump"))
+            //{
+            //    BoingScore();
+            //}
         }
     }
 
     // Called when the tween ends
     private void EndBoingScore()
     {
-        Debug.Log("Boing over.");
+        // Debug.Log("Boing over.");
         isBoinging = false;
     }
 
@@ -53,11 +52,14 @@ public class TweenyScore : MonoBehaviour
     // back down to minscale. 
     public void BoingScore()
     {
-        Debug.Log("Score goes boiiing");
+        // Debug.Log("Score goes boiiing");
+        isBoinging = true;
+
         tweenedScale = new Vector3(boingStartScale.x, boingStartScale.y, boingStartScale.z);
         DOTween.To(() => tweenedScale, x => tweenedScale = x, minScale, boingDuration)
         .SetEase(Ease.OutElastic)
         .OnComplete(EndBoingScore);   
+
     }
 
 }

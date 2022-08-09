@@ -937,6 +937,7 @@ MonoBehaviour:
   invincibleMusic: {fileID: 229192087}
   defaultColour: {r: 0, g: 0.7176471, b: 1, a: 0}
   powerUpColour: {r: 0.09411765, g: 1, b: 0, a: 0}
+  tweenyScore: {fileID: 1856763597}
 --- !u!82 &229192076
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3352,14 +3353,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1856763593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 135bffad1d85dd7478583ee5ea759a5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 68e689148188aa2459b8b9fb77acdee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: {x: 150, y: 150, z: 1}
-  repeatable: 0
-  speed: 2
-  duration: 60
-  elapsedTime: 0
+  boingStartScaleUp: 20
+  boingDuration: 0.8
 --- !u!1 &1926608139
 GameObject:
   m_ObjectHideFlags: 0
