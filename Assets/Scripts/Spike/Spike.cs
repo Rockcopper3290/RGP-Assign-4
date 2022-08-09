@@ -5,14 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class Spike : MonoBehaviour
 {
+    
+    // Spike colour infomation
+    public Material defaultMaterial;
+    public Material playerIsInvincibleMaterial;
+
+    private Renderer spikeRenderer;
+
     // Game Manager
     private GameManager gameManager;
     private SpikeManager spikeManager;
     private PlayerManager playerManager;
-
-    // Spike colour infomation
-    public Material[] spikeColours;
-    private Renderer spikeRenderer;
 
     public void SetGameManager(GameManager gameManager)
     {
@@ -41,27 +44,30 @@ public class Spike : MonoBehaviour
 
         spikeRenderer = GetComponent<Renderer>();
         spikeRenderer.enabled = true;
-        spikeRenderer.sharedMaterial = spikeColours[0];
+        spikeRenderer.sharedMaterial = defaultMaterial;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position += new Vector3(0.0f, (-this.gameManager.GameSpeed() * Time.deltaTime), 0.0f);
-
-        if (this.playerManager.PlayerIsInvincible() == true && spikeRenderer.sharedMaterial == spikeColours[0])
+        if (this.gameManager.GameRunning())
         {
-            //change colour to transparent green
-            spikeRenderer.sharedMaterial = spikeColours[1];
-        }
-        else if (this.playerManager.PlayerIsInvincible() == false && spikeRenderer.sharedMaterial == spikeColours[1])
-        {
-            //change colour back to red
-            spikeRenderer.sharedMaterial = spikeColours[0];
-        }
-        
+            // Move Spike
+            gameObject.transform.position += new Vector3(0.0f, (-this.gameManager.GameSpeed() * Time.deltaTime), 0.0f);
 
+            // Should Spike be the defaultMaterial ?
+            if (!this.playerManager.PlayerIsInvincible() && spikeRenderer.sharedMaterial != this.defaultMaterial)
+            {
+                spikeRenderer.sharedMaterial = this.defaultMaterial;
+            }
+
+            // Should Spike be the PlayerIsInvincible Material ?
+            if (this.playerManager.PlayerIsInvincible() && spikeRenderer.sharedMaterial != this.playerIsInvincibleMaterial)
+            {
+                spikeRenderer.sharedMaterial = this.playerIsInvincibleMaterial;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
