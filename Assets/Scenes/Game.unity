@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1645,7 +1645,6 @@ MonoBehaviour:
   speedIncreasePerSec: 0.05
   maxSpeed: 20
   backgroundMusic: {fileID: 443916017}
-  gamePauseFunction_wasUsed: 0
 --- !u!82 &443916017
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2709,6 +2708,7 @@ MonoBehaviour:
   spikePrefab: {fileID: 4443970059335700525, guid: 8b1a265e6925122449a122a3a23fc09f, type: 3}
   minTimeBetweenSpikes: 0.6
   maxTimeBetweenSpikes: 1
+  probOfDoubleSpike: 0.1
   maxNumberOfSpikes: 5
   minDistFromPickUp: 2.5
 --- !u!1 &1771135436

@@ -10,6 +10,7 @@ public class SpikeManager : MonoBehaviour
     // Spike Behavour, 
     public float minTimeBetweenSpikes = 0.5f;
     public float maxTimeBetweenSpikes = 1.0f;
+    public float probOfDoubleSpike = 0.1f;
     public int maxNumberOfSpikes = 5;
 
     // Position Control
@@ -46,7 +47,25 @@ public class SpikeManager : MonoBehaviour
         return false;
     }
 
-    private void CreateSpike()
+    private void CreateSpike(string spikeType, Vector3 position)
+    {
+        // Instantiate a Spike from the Prefab
+        GameObject spike = Instantiate(spikePrefab);
+
+        // Get the Spike Script from Spike Game Object
+        Spike spikeScript = spike.GetComponent<Spike>();
+
+        // Set the Spike's reference to the Game Manager
+        spikeScript.SetGameManager(this.gameManager);
+        
+        // Initalise the Spike
+        spikeScript.Initialise(spikeType, position);
+
+        // Add the Spike to the spikes list
+        this.spikes.Add(spike);
+    }
+
+    private void GenerateSpike()
     {
         string spikeType;
         Vector3 position;
@@ -68,20 +87,11 @@ public class SpikeManager : MonoBehaviour
         if (TooCloseToPickUp(position))
             return;
 
-        // Instantiate a Spike from the Prefab
-        GameObject spike = Instantiate(spikePrefab);
+        CreateSpike(spikeType, position);
 
-        // Get the Spike Script from Spike Game Object
-        Spike spikeScript = spike.GetComponent<Spike>();
-
-        // Set the Spike's reference to the Game Manager
-        spikeScript.SetGameManager(this.gameManager);
-        
-        // Initalise the Spike
-        spikeScript.Initialise(spikeType, position);
-
-        // Add the Spike to the spikes list
-        this.spikes.Add(spike);
+        // Do we create a Double Spike ?
+        if (Random.Range(0.0f, 1.0f) < this.probOfDoubleSpike)
+            CreateSpike(spikeType, position + new Vector3(0.0f, 2.0f, 0.0f));
 
         // Schedule the next Spike
         ScheduleNextSpike();
@@ -135,7 +145,7 @@ public class SpikeManager : MonoBehaviour
         // Is it time for another Spike ?
         if ((this.timeSinceLastSpike > this.timeTillNextSpike) && (this.spikes.Count < maxNumberOfSpikes))
         { 
-            CreateSpike();
+            GenerateSpike();
         }
     }
 }
