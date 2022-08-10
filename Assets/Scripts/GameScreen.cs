@@ -28,6 +28,8 @@ public class GameScreen : MonoBehaviour
     private GameManager gameManager;
     private PlayerManager playerManager;
 
+
+
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
@@ -64,6 +66,8 @@ public class GameScreen : MonoBehaviour
 
     public void GamePause()
     {
+        this.gameManager.gamePauseFunction_wasUsed = true;
+
         this.gameManager.GamePause();
 
         _pauseMenu.SetActive(true);
@@ -82,7 +86,7 @@ public class GameScreen : MonoBehaviour
     {
 
     }
-
+    
     // Awake is called before any Start methods, even if the GameObject is disabled
     private void Awake()
     {
