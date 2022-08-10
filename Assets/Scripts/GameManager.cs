@@ -28,10 +28,6 @@ public class GameManager : MonoBehaviour
     private bool gamePaused = false;    // Is the game paused
     private float gameTime;             // Time the game is running
 
-    public bool gamePauseFunction_wasUsed = false;
-    public bool playerMovementIsEnabled = true;
-
-
     private void Awake() {
         this.gameScreen = gameScreenUI.GetComponent<GameScreen>();
         this.playerManager = SNEKBox.GetComponent<PlayerManager>();
@@ -41,7 +37,6 @@ public class GameManager : MonoBehaviour
         this.spikeManager.SetGameManager(this);
         this.pickUpManager.SetGameManager(this);
     }
-
 
     public PlayerManager GetPlayerManager()
     {
@@ -119,7 +114,6 @@ public class GameManager : MonoBehaviour
     {
         if (this.gameRunning)
         {
-            playerMovementIsEnabled = false;
             this.gamePaused = true;
 
             Time.timeScale = 0.0f;
@@ -131,9 +125,6 @@ public class GameManager : MonoBehaviour
     {
         if (this.gameRunning)
         {
-            playerMovementIsEnabled = true;
-            gamePauseFunction_wasUsed = false;
-
             this.gamePaused = false;
 
             Time.timeScale = 1.0f;
@@ -172,15 +163,7 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        //check to see if a pause button was pressed or if the on screen button was clicked
-        if (this.gamePauseFunction_wasUsed == true || Input.GetButtonDown("Pause"))
-        {
-            playerMovementIsEnabled = false;
-            gameScreen.GamePause();
-        }
-        
-        
+    {       
         if (!this.gameRunning)
         {
             if (Input.GetButtonDown("Jump"))
@@ -189,17 +172,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        //If game is not paused then accept player input
         if (!this.gamePaused)
         {
-            if (playerMovementIsEnabled)
-            {
-                this.playerManager.UpdateMovement();
-                this.playerManager.UpdateSprite();
-            }
-
-            
-
             // Increment the Game Time
             this.gameTime += Time.deltaTime;
         }

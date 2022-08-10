@@ -28,8 +28,6 @@ public class GameScreen : MonoBehaviour
     private GameManager gameManager;
     private PlayerManager playerManager;
 
-
-
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
@@ -48,7 +46,7 @@ public class GameScreen : MonoBehaviour
 
         // Set Pause Menu
         _pauseMenu?.SetActive(false);
-        _pauseButton.SetActive(true);
+        _pauseButton?.SetActive(true);
 
         // Show Score
         scoreText.enabled = true;
@@ -66,12 +64,10 @@ public class GameScreen : MonoBehaviour
 
     public void GamePause()
     {
-        this.gameManager.gamePauseFunction_wasUsed = true;
-
         this.gameManager.GamePause();
 
-        _pauseMenu.SetActive(true);
-        _pauseButton.SetActive(false);
+        _pauseMenu?.SetActive(true);
+        _pauseButton?.SetActive(false);
     }
 
     public void GameResume()
@@ -103,6 +99,11 @@ public class GameScreen : MonoBehaviour
             this.invincible.transform.Rotate(this.invincibleRotationPerSecond * Time.deltaTime);
 
             return;
+        }
+
+        if (Input.GetButtonDown("Pause"))
+        {
+            this.GamePause();
         }
 
         scoreText.text = gameManager.GameScore().ToString();

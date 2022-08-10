@@ -146,7 +146,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void UpdateMovement()
+    private void UpdateMovement()
     {
         if (isMovingLeft)
         {
@@ -221,7 +221,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void UpdateSprite()
+    private void UpdateSprite()
     {
         if (this.isInvincible)
         {
@@ -256,10 +256,13 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        //if (!gameManager.GameRunning())
-            //return;
+        if (!gameManager.GameRunning())
+            return;
 
-        //UpdateMovement();
-        //UpdateSprite();
+        if (gameManager.GamePaused())
+            return;
+
+        UpdateMovement();
+        UpdateSprite();
     }
 }
