@@ -10,9 +10,10 @@ public class TweenyScore : MonoBehaviour
     public float boingStartScaleUp = 20.0f;
     // How long does the text take to elastic-tween back to starting size
     public float boingDuration = 0.8f;
-    Vector3 minScale;
-    private Vector3 boingStartScale;        // thing pops to this scale at start of boing
-    private Vector3 tweenedScale;   // vector being updated by DoTween
+
+    private Vector3 minScale;
+    private Vector3 boingStartScale;    // thing pops to this scale at start of boing
+    private Vector3 tweenedScale;       // vector being updated by DoTween
     private bool isBoinging = false;
     
     // Start is called before the first frame update
@@ -24,27 +25,9 @@ public class TweenyScore : MonoBehaviour
         boingStartScale = minScale + new Vector3(boingStartScaleUp, boingStartScaleUp, boingStartScaleUp);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Testing boing by running it whenever jump is clicked.
-        if (isBoinging)
-        {
-            // get the current value set by the tween engine and apply it to the text
-            transform.localScale = tweenedScale; 
-        } else
-        {
-            //if (Input.GetButtonDown("Jump"))
-            //{
-            //    BoingScore();
-            //}
-        }
-    }
-
     // Called when the tween ends
     private void EndBoingScore()
     {
-        // Debug.Log("Boing over.");
         isBoinging = false;
     }
 
@@ -52,14 +35,22 @@ public class TweenyScore : MonoBehaviour
     // back down to minscale. 
     public void BoingScore()
     {
-        // Debug.Log("Score goes boiiing");
         isBoinging = true;
 
         tweenedScale = new Vector3(boingStartScale.x, boingStartScale.y, boingStartScale.z);
-        DOTween.To(() => tweenedScale, x => tweenedScale = x, minScale, boingDuration)
-        .SetEase(Ease.OutElastic)
-        .OnComplete(EndBoingScore);   
 
+        DOTween.To(() => tweenedScale, x => tweenedScale = x, minScale, boingDuration)
+            .SetEase(Ease.OutElastic)
+            .OnComplete(EndBoingScore);   
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (isBoinging)
+        {
+            // get the current value set by the tween engine and apply it to the text
+            transform.localScale = tweenedScale; 
+        }
+    }
 }

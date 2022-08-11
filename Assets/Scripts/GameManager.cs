@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour
         this.pickUpManager.SetGameManager(this);
     }
 
+    public GameScreen GetGameScreen()
+    {
+        return this.gameScreen;
+    }
+
     public PlayerManager GetPlayerManager()
     {
         return this.playerManager;

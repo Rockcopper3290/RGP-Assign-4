@@ -17,6 +17,8 @@ public class GameScreen : MonoBehaviour
     public TMP_Text coinInfoText;
     public TMP_Text powerupInfoText;
 
+    public TweenyScore tweenyScore;
+
     // PickUps
     public GameObject coin;
     public GameObject invincible;
@@ -81,6 +83,11 @@ public class GameScreen : MonoBehaviour
     public void GameOver()
     {
 
+    }
+
+    public void BoingScore()
+    {
+        this.tweenyScore.BoingScore();
     }
     
     // Awake is called before any Start methods, even if the GameObject is disabled

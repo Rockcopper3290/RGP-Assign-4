@@ -39,10 +39,9 @@ public class PlayerManager : MonoBehaviour
     private int coinScore;
     private int spikeScore;
 
-    public TweenyScore tweenyScore;
-
     // Game Manager
     private GameManager gameManager;
+    private GameScreen gameScreen;
     private PickUpManager pickUpManager;
 
     // Components
@@ -59,7 +58,9 @@ public class PlayerManager : MonoBehaviour
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
+        this.gameScreen = gameManager.GetGameScreen();
         this.pickUpManager = gameManager.GetPickUpManager();
+
     }
     
     public bool PlayerIsInvincible() 
@@ -109,10 +110,8 @@ public class PlayerManager : MonoBehaviour
         this.pickUpManager.DestroyPickUp(collision.gameObject);
 
         this.coinScore += PlayerManager.coinValue;
+        this.gameScreen.BoingScore();
         this.coinSound.Play();
-
-        tweenyScore.BoingScore();
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -145,8 +144,8 @@ public class PlayerManager : MonoBehaviour
                 (collision.gameObject.tag == "Right Spike") )
             {
                 this.spikeScore += PlayerManager.spikeValue;
+                this.gameScreen.BoingScore();
                 spikeDestroySound.Play();
-                tweenyScore.BoingScore();
             }
         }
     }
