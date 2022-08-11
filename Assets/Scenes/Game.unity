@@ -317,10 +317,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Click/Spacebar to swap sides
+  m_text: 'Avoid the spikes!
 
 
-    Avoid the spikes!
+    Click/Spacebar to swap sides
+
+
+    Double Click
+    to Jump
+
 
 '
   m_isRightToLeft: 0
@@ -3662,7 +3667,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 170.17358}
+  m_AnchoredPosition: {x: 0, y: 240.1736}
   m_SizeDelta: {x: 712.29, y: 160.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2050873872

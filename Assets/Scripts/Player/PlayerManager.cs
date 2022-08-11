@@ -18,8 +18,13 @@ public class PlayerManager : MonoBehaviour
     public Color defaultColour;
     public Color powerUpColour;
 
+    // Double Click Detection
+    private float moveOffWallTime;
+    private float doubleClickDelay = 0.18f;
+
     // Player Properties, Movement
     private Vector3 velocity;
+    private Vector3 acceleration;
     private bool isGrounded;
     private bool isMovingLeft;
 
@@ -155,13 +160,25 @@ public class PlayerManager : MonoBehaviour
                 // On Left Wall, does the Player leave the Left Wall
                 if (Input.GetButtonDown("Jump"))
                 {
+                    moveOffWallTime = Time.time;
+
                     velocity = new Vector3(this.moveSpeed, 0.0f, 0.0f);
+                    acceleration = Vector3.zero;
                     isGrounded = false;
                     isMovingLeft = false;
                 }
             }
             else
             {
+                // Moving off Right Wall, Do We Get Double Click ?
+                if (Input.GetButtonDown("Jump") &&
+                    ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) )
+                {
+                    // Jump over Spike, on Right Wall
+                    acceleration = new Vector3(this.moveSpeed * 0.125f, 0.0f, 0.0f);
+                    isMovingLeft = false;
+                }
+
                 // Has the Player reached the Left Wall
                 if (transform.position.x <= -3.0f)
                 {
@@ -173,6 +190,7 @@ public class PlayerManager : MonoBehaviour
                 // The Player is moving Left
                 else
                 {
+                    velocity += acceleration;
                     Vector3 newPosition = transform.position + (this.velocity * Time.deltaTime);
                     transform.position = new Vector3(Mathf.Max(-3.0f, newPosition.x), newPosition.y, newPosition.z);
 
@@ -191,13 +209,25 @@ public class PlayerManager : MonoBehaviour
                 // On Right Wall, does the Player leave the Right Wall
                 if (Input.GetButtonDown("Jump"))
                 {
+                    this.moveOffWallTime = Time.time;
+
                     velocity = new Vector3(-this.moveSpeed, 0.0f, 0.0f);
+                    acceleration = Vector3.zero;
                     isGrounded = false;
                     isMovingLeft = true;
                 }
             }
             else
             {
+                // Moving off Left Wall, Do We Get Double Click ?
+                if (Input.GetButtonDown("Jump") &&
+                    ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) )
+                {
+                    // Jump over Spike, on Left Wall
+                    acceleration = new Vector3(-this.moveSpeed * 0.125f, 0.0f, 0.0f);
+                    isMovingLeft = true;
+                }
+
                 // Has the Player reached the Right Wall
                 if (transform.position.x >= 3.0f)
                 {
@@ -209,6 +239,7 @@ public class PlayerManager : MonoBehaviour
                 // The Player is moving Right
                 else
                 {
+                    velocity += acceleration;
                     Vector3 newPosition = transform.position + (this.velocity * Time.deltaTime);
                     transform.position = new Vector3(Mathf.Min(3.0f, newPosition.x), newPosition.y, newPosition.z);
 
