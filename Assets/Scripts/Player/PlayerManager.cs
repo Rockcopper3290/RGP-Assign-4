@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
 
     // Double Click Detection
     private float moveOffWallTime;
-    private float doubleClickDelay = 0.18f;
+    private float doubleClickDelay = 0.15f;
 
     // Player Properties, Movement
     private Vector3 velocity;
@@ -172,7 +172,8 @@ public class PlayerManager : MonoBehaviour
             {
                 // Moving off Right Wall, Do We Get Double Click ?
                 if (Input.GetButtonDown("Jump") &&
-                    ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) )
+                    ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) &&
+                    (acceleration == Vector3.zero) )
                 {
                     // Jump over Spike, on Right Wall
                     acceleration = new Vector3(this.moveSpeed * 0.125f, 0.0f, 0.0f);
@@ -185,6 +186,7 @@ public class PlayerManager : MonoBehaviour
                     // Fix Player position to the Left Wall
                     transform.position = new Vector3(-3.0f, 0.0f, 0.0f);
                     velocity = Vector3.zero;
+                    acceleration = Vector3.zero;
                     isGrounded = true;
                 }
                 // The Player is moving Left
@@ -221,7 +223,8 @@ public class PlayerManager : MonoBehaviour
             {
                 // Moving off Left Wall, Do We Get Double Click ?
                 if (Input.GetButtonDown("Jump") &&
-                    ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) )
+                    ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) &&
+                    (acceleration == Vector3.zero) )
                 {
                     // Jump over Spike, on Left Wall
                     acceleration = new Vector3(-this.moveSpeed * 0.125f, 0.0f, 0.0f);
@@ -234,6 +237,7 @@ public class PlayerManager : MonoBehaviour
                     // Fix Player position to the Right Wall
                     transform.position = new Vector3(3.0f, 0.0f, 0.0f);
                     velocity = Vector3.zero;
+                    acceleration = Vector3.zero;
                     isGrounded = true;
                 }
                 // The Player is moving Right
