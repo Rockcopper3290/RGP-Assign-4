@@ -7,24 +7,29 @@ using TMPro;
 
 public class GameScreen : MonoBehaviour
 {
-    [SerializeField] private GameObject _pauseMenu;
-    [SerializeField] private GameObject _pauseButton;
 
-    // Set in Unity Inspector
-    public TMP_Text scoreText;
-    public TMP_Text clickToStartText;
-    public TMP_Text instructionsText;
-    public TMP_Text coinInfoText;
-    public TMP_Text powerupInfoText;
+    // Instructions View
+    [Header("Instructions View")]
+    [SerializeField] private GameObject instructionsView;
 
-    public TweenyScore tweenyScore;
+    // Instructions View, Pickups
+    [SerializeField] private GameObject coin;
+    [SerializeField] private GameObject invincible;
+    [SerializeField] private Vector3 coinRotationPerSecond = new Vector3(0.0f, -180.0f, 0.0f);
+    [SerializeField] private Vector3 invincibleRotationPerSecond = new Vector3(0.0f, -180.0f, 0.0f);
+    [Space(10)]
 
-    // PickUps
-    public GameObject coin;
-    public GameObject invincible;
+    // Game View
+    [Header("Game View")]
+    [SerializeField] private GameObject gameView;
+    [SerializeField] private GameObject pauseButton;
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TweenyScore tweenyScore;
+    [Space(10)]
 
-    public Vector3 coinRotationPerSecond = new Vector3(0.0f, 180.0f, 0.0f);
-    public Vector3 invincibleRotationPerSecond = new Vector3(0.0f, 0.0f, 0.0f);
+    // Pause View
+    [Header("Pause View")]
+    [SerializeField] private GameObject pauseView;
 
     // Game Manager
     private GameManager gameManager;
@@ -34,6 +39,27 @@ public class GameScreen : MonoBehaviour
     {
         this.gameManager = gameManager;
         this.playerManager = gameManager.GetPlayerManager();
+    }
+
+    private void ShowInstructionsView()
+    {
+        this.instructionsView.SetActive(true);
+        this.gameView.SetActive(false);
+        this.pauseView.SetActive(false);
+    }
+
+    private void ShowGameView()
+    {
+        this.instructionsView.SetActive(false);
+        this.gameView.SetActive(true);
+        this.pauseView.SetActive(false);
+    }
+
+    private void ShowPauseView()
+    {
+        this.instructionsView.SetActive(false);
+        this.gameView.SetActive(false);
+        this.pauseView.SetActive(true);
     }
 
     public void MainMenu()
@@ -46,38 +72,21 @@ public class GameScreen : MonoBehaviour
         if (gameManager.GameRunning())
             return;
 
-        // Set Pause Menu
-        _pauseMenu?.SetActive(false);
-        _pauseButton?.SetActive(true);
-
-        // Show Score
-        scoreText.enabled = true;
-
-        // Hide Instructions
-        clickToStartText.enabled = false;
-        instructionsText.enabled = false;
-        coinInfoText.enabled = false;
-        powerupInfoText.enabled = false;
-
-        // Hide Display PickUps
-        coin.GetComponent<Renderer>().enabled = false;
-        invincible.GetComponent<Renderer>().enabled = false;
+        ShowGameView();
     }
 
     public void GamePause()
     {
         this.gameManager.GamePause();
 
-        _pauseMenu?.SetActive(true);
-        _pauseButton?.SetActive(false);
+        ShowPauseView();
     }
 
     public void GameResume()
     {
         this.gameManager.GameResume();
 
-        _pauseMenu?.SetActive(false);
-        _pauseButton?.SetActive(true);
+        ShowGameView();
     }
 
     public void GameOver()
@@ -93,15 +102,15 @@ public class GameScreen : MonoBehaviour
     // Awake is called before any Start methods, even if the GameObject is disabled
     private void Awake()
     {
-        // Hide Score
-        scoreText.enabled = false;
+        ShowInstructionsView();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!gameManager.GameRunning())
-        {
+       // Is The Instructions View Active
+       if (this.instructionsView.activeSelf == true) 
+       {
             this.coin.transform.Rotate(this.coinRotationPerSecond * Time.deltaTime);
             this.invincible.transform.Rotate(this.invincibleRotationPerSecond * Time.deltaTime);
 
@@ -110,7 +119,10 @@ public class GameScreen : MonoBehaviour
 
         if (Input.GetButtonDown("Pause"))
         {
-            this.GamePause();
+            if (!this.gameManager.GamePaused())
+                this.GamePause();
+            else
+                this.GameResume();
         }
 
         scoreText.text = gameManager.GameScore().ToString();
