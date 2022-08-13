@@ -5,17 +5,24 @@ using UnityEngine;
 public class PickUpManager : MonoBehaviour
 {
     // PickUp Infomation
-    public GameObject coinPrefab;
-    public GameObject invinciblePrefab;
+    [Header("PickUp Prefabs")]
+    [SerializeField] private GameObject coinPrefab;
+    [SerializeField] private GameObject shieldPrefab;
+    [SerializeField] private GameObject invinciblePrefab;
+    [Space(10)]
 
     // PickUp Behavour
-    public float probInvincible = 0.10f;
-    public float minTimeBetweenPickUps = 1.0f;
-    public float maxTimeBetweenPickUps = 2.0f;
-    public int maxNumberOfPickUps = 2;
+    [Header("Pickup Behavour")]
+    [SerializeField] private float probInvincible = 0.05f;
+    [SerializeField] private float probShield = 0.05f;
+    [SerializeField] private float minTimeBetweenPickUps = 1.0f;
+    [SerializeField] private float maxTimeBetweenPickUps = 2.0f;
+    [SerializeField] private int maxNumberOfPickUps = 2;
+    [Space(10)]
 
     // Position Control
-    public float minDistFromSpike = 2.5f;
+    [Header("Pickup Position Control")]
+    [SerializeField] private float minDistFromSpike = 2.5f;
 
     // Game Manager
     private GameManager gameManager;
@@ -61,10 +68,12 @@ public class PickUpManager : MonoBehaviour
         if (TooCloseToSpike(position))
             return;
 
-        // Do we create a Coin or Invicible ?
+        // Do we create an Invicible, Sheild or Coin
         float prob = Random.Range(0.0f, 1.0f);
         if (prob <= this.probInvincible)
             pickup = Instantiate(this.invinciblePrefab);
+        else if (prob <= (this.probInvincible + this.probShield))
+            pickup = Instantiate(this.shieldPrefab);
         else
             pickup = Instantiate(this.coinPrefab);
 

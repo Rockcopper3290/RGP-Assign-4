@@ -5,18 +5,28 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     // Set In Unity Inspector
-    public float moveSpeed = 20.0f;
-    public float invincibleTime = 5.0f;
+    [Header("Movement and Behaviour")]
+    [SerializeField] private float moveSpeed = 20.0f;
+    [SerializeField] private float invincibleTime = 5.0f;
+    [Space(10)]
+
+    [Header("Shield")]
+    [SerializeField] private GameObject shield;
+    [Space(10)]
 
     // Sounds, Set In Unity Inspector
-    public AudioSource coinSound;
-    public AudioSource invincibleSound;
-    public AudioSource spikeDestroySound;
-    public AudioSource invincibleMusic;
+    [Header("Sounds")]
+    [SerializeField] private AudioSource coinSound;
+    [SerializeField] private AudioSource invincibleSound;
+    [SerializeField] private AudioSource shieldSound;
+    [SerializeField] private AudioSource spikeDestroySound;
+    [SerializeField] private AudioSource invincibleMusic;
+    [Space(10)]
 
     // Colour, Set In Unity Inspector
-    public Color defaultColour;
-    public Color powerUpColour;
+    [Header("Colours")]
+    [SerializeField] private Color defaultColour;
+    [SerializeField] private Color powerUpColour;
 
     // Double Click Detection
     private float moveOffWallTime;
@@ -32,6 +42,9 @@ public class PlayerManager : MonoBehaviour
     private bool isInvincible;
     private float invincibleTimeRemaining;
 
+    // Player Properties, Shielded
+    private bool isShielded;
+
     // Score
     private const int coinValue = 10;
     private const int spikeValue = 5;
@@ -43,6 +56,7 @@ public class PlayerManager : MonoBehaviour
     private GameManager gameManager;
     private GameScreen gameScreen;
     private PickUpManager pickUpManager;
+    private SpikeManager spikeManager;
 
     // Components
     private Renderer playerRenderer;
@@ -51,8 +65,6 @@ public class PlayerManager : MonoBehaviour
     {
         // Components
         this.playerRenderer = this.GetComponent<Renderer>();
-
-        // minScale = transform.localScale;
     }
 
     public void SetGameManager(GameManager gameManager)
@@ -60,12 +72,17 @@ public class PlayerManager : MonoBehaviour
         this.gameManager = gameManager;
         this.gameScreen = gameManager.GetGameScreen();
         this.pickUpManager = gameManager.GetPickUpManager();
-
+        this.spikeManager = gameManager.GetSpikeManager();
     }
     
     public bool PlayerIsInvincible() 
     {
         return this.isInvincible;
+    }
+
+    public bool PlayerIsShielded()
+    {
+        return this.isShielded;
     }
     
     public int Score()
@@ -78,6 +95,10 @@ public class PlayerManager : MonoBehaviour
         // Invincible
         this.isInvincible = false;
         this.invincibleTimeRemaining = 0.0f;
+
+        // Shielded
+        this.shield.SetActive(false);
+        this.isShielded = false;
 
         // Score
         this.coinScore = 0;
@@ -128,7 +149,6 @@ public class PlayerManager : MonoBehaviour
             this.invincibleTimeRemaining = this.invincibleTime;
             this.invincibleSound.Play();
 
-
             if (!this.isInvincible)
             {
                 this.isInvincible = true;
@@ -136,16 +156,52 @@ public class PlayerManager : MonoBehaviour
                 this.invincibleMusic.PlayDelayed(this.invincibleSound.clip.length * 0.5f);
                 this.gameManager.BackgroundMusicPause();
             }
+
+            // Shield is lost when you become Invincible
+            if (this.isShielded)
+            {
+                this.isShielded = false;
+                this.shield.SetActive(false);
+            }
         }
 
-        if (this.isInvincible)
+        if (collision.gameObject.tag == "Shield")
         {
-            if ((collision.gameObject.tag == "Left Spike") ||
-                (collision.gameObject.tag == "Right Spike") )
+            this.pickUpManager.DestroyPickUp(collision.gameObject);
+
+            this.isShielded = true;
+            this.shield.SetActive(true);
+
+            // Invincibility is lost when you get a Shield
+            if (this.isInvincible)
+            {
+                this.invincibleTimeRemaining = 0.0f;
+            }
+        }
+
+        if ((collision.gameObject.tag == "Left Spike") ||
+            (collision.gameObject.tag == "Right Spike") )
+        {
+            if (this.isInvincible)
             {
                 this.spikeScore += PlayerManager.spikeValue;
                 this.gameScreen.BoingScore();
                 spikeDestroySound.Play();
+                this.spikeManager.DestroySpike(collision.gameObject);
+            }
+            else if (this.isShielded)
+            {            
+                this.spikeScore += PlayerManager.spikeValue;
+                this.gameScreen.BoingScore();
+                spikeDestroySound.Play();
+                this.spikeManager.DestroySpike(collision.gameObject);
+
+                this.isShielded = false;
+                this.shield.SetActive(false);
+            }
+            else
+            {
+                this.gameManager.GameOver();
             }
         }
     }

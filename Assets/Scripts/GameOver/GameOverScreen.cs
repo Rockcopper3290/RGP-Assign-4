@@ -8,33 +8,23 @@ using TMPro;
 public class GameOverScreen : MonoBehaviour
 {
     // Set in Unity Inspector
-    public TMP_Text scoreText;
-    public TMP_Text highScoreText;
-    public AudioSource music;
-
-    //public TMP_Text finishText;
-    public TMP_Text clickToReplayText;
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text highScoreText;
+    [SerializeField] private TMP_Text clickToReplayText;
+    [SerializeField] private AudioSource music;
 
     // Game Over Screen Management
     private float timeSinceStart;
 
     public void PlayGame()
     {
-        Debug.Log("Play Game");
         SceneManager.LoadScene("Game");
     }
 
     public void QuitGame()
     {
-        Debug.Log("Quit Game");
         Application.Quit();
     }
-
-    //public void LoadMenu()
-    //{
-    //    Debug.Log("Load Menu");
-    //    SceneManager.LoadScene("Menu");
-    //}
 
     // Awake is called before any Start methods, even if the GameObject is disabled
     void Awake()
@@ -45,12 +35,13 @@ public class GameOverScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //this.timeSinceStart = 0.0f;
-        music.Play();
         this.scoreText.text = "Score: " + GameOverData.score.ToString();
         this.highScoreText.text = "High Score: " + GameOverData.highScore.ToString();
         this.clickToReplayText.text = "";
 
+        music.Play();
+
+        this.timeSinceStart = 0.0f;
     }
 
     // Update is called once per frame
@@ -59,7 +50,7 @@ public class GameOverScreen : MonoBehaviour
         // Increment Time Since Screen Start
         this.timeSinceStart += Time.deltaTime;
 
-        if (this.timeSinceStart >= 1.0)
+        if (this.timeSinceStart >= 1.0f)
         {
             this.clickToReplayText.text = "Click to Replay";
 

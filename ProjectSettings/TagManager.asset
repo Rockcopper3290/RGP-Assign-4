@@ -10,6 +10,8 @@ TagManager:
   - Coin
   - DeathBox
   - Invincible
+  - Shield
+  - Destroy Spike
   layers:
   - Default
   - TransparentFX

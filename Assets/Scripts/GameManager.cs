@@ -7,21 +7,26 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     // Set in Unity Inspector
-    public GameObject gameScreenUI;
-    public GameObject SNEKBox;
-    public SpikeManager spikeManager;
-    public PickUpManager pickUpManager;
+    [Header("Objects and Scripts")]
+    [SerializeField] private GameObject gameScreenUI;
+    [SerializeField] private GameObject SNEKBox;
+    [SerializeField] private SpikeManager spikeManager;
+    [SerializeField] private PickUpManager pickUpManager;
+    [Space(10)]
 
     private GameScreen gameScreen;
     private PlayerManager playerManager;
 
     // Movement Speed
-    public float initialSpeed = 10.0f;
-    public float speedIncreasePerSec = 0.05f;
-    public float maxSpeed = 20.0f;
+    [Header("Movement Speed")]
+    [SerializeField] private float initialSpeed = 10.0f;
+    [SerializeField] private float speedIncreasePerSec = 0.05f;
+    [SerializeField] private float maxSpeed = 20.0f;
+    [Space(10)]
 
     // Background Music
-    public AudioSource backgroundMusic;
+    [Header("Music")]
+    [SerializeField] private AudioSource backgroundMusic;
 
     // Game Status
     private bool gameRunning = false;   // Is the game running

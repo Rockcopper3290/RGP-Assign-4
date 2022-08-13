@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Spike : MonoBehaviour
 {
-    
     // Spike colour infomation
-    public Material defaultMaterial;
-    public Material playerIsInvincibleMaterial;
+    [Header("Spike Materials")]
+    [SerializeField] private Material defaultMaterial;
+    [SerializeField] private Material playerIsInvincibleMaterial;
 
     private Renderer spikeRenderer;
 
@@ -45,7 +45,6 @@ public class Spike : MonoBehaviour
         spikeRenderer = GetComponent<Renderer>();
         spikeRenderer.enabled = true;
         spikeRenderer.sharedMaterial = defaultMaterial;
-
     }
 
     // Update is called once per frame
@@ -72,17 +71,6 @@ public class Spike : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            if (this.playerManager.PlayerIsInvincible())
-            {
-                this.spikeManager.DestroySpike(this.gameObject);
-                return;
-            }
-
-            this.gameManager.GameOver();
-        }
-
         if (collision.gameObject.tag == "DeathBox")
         {
             this.spikeManager.DestroySpike(this.gameObject);

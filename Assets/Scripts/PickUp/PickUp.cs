@@ -5,7 +5,7 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     // Movement
-    public Vector3 rotatePerSecond = new Vector3(0.0f, 0.0f, 0.0f);
+    [SerializeField] private Vector3 rotatePerSecond = new Vector3(0.0f, 0.0f, 0.0f);
 
     // Game Manager
     private GameManager gameManager;

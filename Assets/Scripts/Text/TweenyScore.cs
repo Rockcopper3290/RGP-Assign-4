@@ -7,9 +7,9 @@ using DG.Tweening;
 public class TweenyScore : MonoBehaviour
 {
     // How much should text grow when it starts boinging (30=30%)
-    public float boingStartScaleUp = 20.0f;
+    [SerializeField] private float boingStartScaleUp = 20.0f;
     // How long does the text take to elastic-tween back to starting size
-    public float boingDuration = 0.8f;
+    [SerializeField] private float boingDuration = 0.8f;
 
     private Vector3 minScale;
     private Vector3 boingStartScale;    // thing pops to this scale at start of boing

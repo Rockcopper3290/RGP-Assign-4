@@ -14,8 +14,10 @@ public class GameScreen : MonoBehaviour
 
     // Instructions View, Pickups
     [SerializeField] private GameObject coin;
+    [SerializeField] private GameObject shield;
     [SerializeField] private GameObject invincible;
     [SerializeField] private Vector3 coinRotationPerSecond = new Vector3(0.0f, -180.0f, 0.0f);
+    [SerializeField] private Vector3 shieldRotationPerSecond = new Vector3(0.0f, -180.0f, 0.0f);
     [SerializeField] private Vector3 invincibleRotationPerSecond = new Vector3(0.0f, -180.0f, 0.0f);
     [Space(10)]
 
@@ -112,6 +114,7 @@ public class GameScreen : MonoBehaviour
        if (this.instructionsView.activeSelf == true) 
        {
             this.coin.transform.Rotate(this.coinRotationPerSecond * Time.deltaTime);
+            this.shield.transform.Rotate(this.shieldRotationPerSecond * Time.deltaTime);
             this.invincible.transform.Rotate(this.invincibleRotationPerSecond * Time.deltaTime);
 
             return;

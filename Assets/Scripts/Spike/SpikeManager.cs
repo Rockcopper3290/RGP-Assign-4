@@ -5,16 +5,21 @@ using UnityEngine;
 public class SpikeManager : MonoBehaviour
 {
     // Spike Infomation
-    public GameObject spikePrefab;
+    [Header("Spike Prefab")]
+    [SerializeField] private GameObject spikePrefab;
+    [Space(10)]
 
     // Spike Behavour, 
-    public float minTimeBetweenSpikes = 0.5f;
-    public float maxTimeBetweenSpikes = 1.0f;
-    public float probOfDoubleSpike = 0.1f;
-    public int maxNumberOfSpikes = 5;
+    [Header("Spike Behavour")]
+    [SerializeField] private float minTimeBetweenSpikes = 0.5f;
+    [SerializeField] private float maxTimeBetweenSpikes = 1.0f;
+    [SerializeField] private float probOfDoubleSpike = 0.1f;
+    [SerializeField] private int maxNumberOfSpikes = 5;
+    [Space(10)]
 
     // Position Control
-    public float minDistFromPickUp = 2.5f;
+    [Header("Spike Position Control")]
+    [SerializeField] private float minDistFromPickUp = 2.5f;
 
     // Game Manager
     private GameManager gameManager;
@@ -107,6 +112,8 @@ public class SpikeManager : MonoBehaviour
     // Destroy a specific Spike
     public void DestroySpike(GameObject spike)
     {
+        // Tag spike as being Destroyed, ensures PlayerManager will not redetect a collision
+        spike.tag = "Destroy Spike";
         this.spikes.Remove(spike);
         Destroy(spike);
     }
@@ -119,6 +126,7 @@ public class SpikeManager : MonoBehaviour
         {
             GameObject spike = this.spikes[i];
             this.spikes.RemoveAt(i);
+            spike.tag = "Destroy Spike";
             Destroy(spike);
         }
     }
