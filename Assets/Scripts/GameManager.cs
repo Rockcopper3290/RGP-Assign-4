@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
     [Header("Music")]
     [SerializeField] private AudioSource backgroundMusic;
 
+    // Score
+    private const int coinValue = 10;
+    private const int spikeValue = 5;
+
+    private int coinScore;
+    private int spikeScore;
+
     // Game Status
     private bool gameRunning = false;   // Is the game running
     private bool gamePaused = false;    // Is the game paused
@@ -88,14 +95,26 @@ public class GameManager : MonoBehaviour
         return this.gameTime;
     }
 
-    public int GameScore()
-    {
-        return (int)Mathf.Floor(this.gameTime) + this.playerManager.Score();
-    }
-
     public float GameSpeed()
     {
         return (Mathf.Min(this.initialSpeed + (GameTime() * this.speedIncreasePerSec), this.maxSpeed));
+    }
+
+    public int GameScore()
+    {
+        return (int)Mathf.Floor(this.gameTime) + (this.coinScore + this.spikeScore);
+    }
+
+    public void ScoreCoinPickup()
+    {
+        this.coinScore += GameManager.coinValue;
+        this.gameScreen.BoingScore();
+    }
+
+    public void ScoreSpike()
+    {
+        this.spikeScore += GameManager.spikeValue;
+        this.gameScreen.BoingScore();
     }
 
     public void GameStart()
@@ -107,6 +126,10 @@ public class GameManager : MonoBehaviour
 
             // Ensure AudioListener is Running
             AudioListener.pause = false;
+
+            // Score
+            this.coinScore = 0;
+            this.spikeScore = 0;
 
             this.gameScreen.GameStart();
             this.playerManager.GameStart();

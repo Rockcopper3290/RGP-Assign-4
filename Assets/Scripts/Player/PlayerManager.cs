@@ -45,13 +45,6 @@ public class PlayerManager : MonoBehaviour
     // Player Properties, Shielded
     private bool isShielded;
 
-    // Score
-    private const int coinValue = 10;
-    private const int spikeValue = 5;
-
-    private int coinScore;
-    private int spikeScore;
-
     // Game Manager
     private GameManager gameManager;
     private GameScreen gameScreen;
@@ -85,11 +78,6 @@ public class PlayerManager : MonoBehaviour
         return this.isShielded;
     }
     
-    public int Score()
-    {
-        return this.coinScore + this.spikeScore;
-    }
-
     public void GameStart()
     {
         // Invincible
@@ -99,10 +87,6 @@ public class PlayerManager : MonoBehaviour
         // Shielded
         this.shield.SetActive(false);
         this.isShielded = false;
-
-        // Score
-        this.coinScore = 0;
-        this.spikeScore = 0;
 
         // Randomly choose which side to start on
         if (Random.Range(0.0f, 1.0f) < 0.5f)
@@ -130,8 +114,7 @@ public class PlayerManager : MonoBehaviour
     {
         this.pickUpManager.DestroyPickUp(collision.gameObject);
 
-        this.coinScore += PlayerManager.coinValue;
-        this.gameScreen.BoingScore();
+        this.gameManager.ScoreCoinPickup();
         this.coinSound.Play();
     }
 
@@ -184,15 +167,13 @@ public class PlayerManager : MonoBehaviour
         {
             if (this.isInvincible)
             {
-                this.spikeScore += PlayerManager.spikeValue;
-                this.gameScreen.BoingScore();
+                this.gameManager.ScoreSpike();
                 spikeDestroySound.Play();
                 this.spikeManager.DestroySpike(collision.gameObject);
             }
             else if (this.isShielded)
-            {            
-                this.spikeScore += PlayerManager.spikeValue;
-                this.gameScreen.BoingScore();
+            {  
+                this.gameManager.ScoreSpike();
                 spikeDestroySound.Play();
                 this.spikeManager.DestroySpike(collision.gameObject);
 

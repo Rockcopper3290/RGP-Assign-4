@@ -2560,8 +2560,8 @@ MonoBehaviour:
   coinPrefab: {fileID: 8630488645843108725, guid: 88c3851c21cece840af0ef25f97bf153, type: 3}
   shieldPrefab: {fileID: 9202385314189857993, guid: e94d5a34dd8f3fc44b57d9888f9053c0, type: 3}
   invinciblePrefab: {fileID: 3709872338263505423, guid: e7122bfedf15eda44aef9ce2343d691e, type: 3}
-  probInvincible: 0.4
-  probShield: 0.4
+  probInvincible: 0.05
+  probShield: 0.05
   minTimeBetweenPickUps: 1
   maxTimeBetweenPickUps: 2
   maxNumberOfPickUps: 2
