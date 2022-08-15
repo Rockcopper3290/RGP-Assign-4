@@ -35,29 +35,31 @@ public class GameScreen : MonoBehaviour
 
     // Game Manager
     private GameManager gameManager;
+    private InputManager inputManager;
     private PlayerManager playerManager;
 
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
+        this.inputManager = gameManager.GetInputManager();
         this.playerManager = gameManager.GetPlayerManager();
     }
 
-    private void ShowInstructionsView()
+    public void ShowInstructionsView()
     {
         this.instructionsView.SetActive(true);
         this.gameView.SetActive(false);
         this.pauseView.SetActive(false);
     }
 
-    private void ShowGameView()
+    public void ShowGameView()
     {
         this.instructionsView.SetActive(false);
         this.gameView.SetActive(true);
         this.pauseView.SetActive(false);
     }
 
-    private void ShowPauseView()
+    public void ShowPauseView()
     {
         this.instructionsView.SetActive(false);
         this.gameView.SetActive(false);
@@ -73,20 +75,6 @@ public class GameScreen : MonoBehaviour
     {
         if (gameManager.GameRunning())
             return;
-
-        ShowGameView();
-    }
-
-    public void GamePause()
-    {
-        this.gameManager.GamePause();
-
-        ShowPauseView();
-    }
-
-    public void GameResume()
-    {
-        this.gameManager.GameResume();
 
         ShowGameView();
     }
@@ -120,12 +108,12 @@ public class GameScreen : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonDown("Pause"))
+        if (this.inputManager.GetButtonDown("Pause"))
         {
             if (!this.gameManager.GamePaused())
-                this.GamePause();
+                this.gameManager.GamePause();
             else
-                this.GameResume();
+                this.gameManager.GameResume();
         }
 
         scoreText.text = gameManager.GameScore().ToString();

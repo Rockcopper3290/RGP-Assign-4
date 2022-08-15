@@ -17,13 +17,11 @@ public class StartMenu: MonoBehaviour
 
     public void PlayGame()
     {
-        Debug.Log("Play Game");
         SceneManager.LoadScene("Game");
     }
 
     public void QuitGame()
     {
-        Debug.Log("Quit Game");
         Application.Quit();
     }
 
@@ -36,7 +34,6 @@ public class StartMenu: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //this.timeSinceStart = 0.0f;
         //music.Play();
     }
 

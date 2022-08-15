@@ -47,6 +47,7 @@ public class PlayerManager : MonoBehaviour
 
     // Game Manager
     private GameManager gameManager;
+    private InputManager inputManager;
     private GameScreen gameScreen;
     private PickUpManager pickUpManager;
     private SpikeManager spikeManager;
@@ -63,6 +64,7 @@ public class PlayerManager : MonoBehaviour
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
+        this.inputManager = gameManager.GetInputManager();
         this.gameScreen = gameManager.GetGameScreen();
         this.pickUpManager = gameManager.GetPickUpManager();
         this.spikeManager = gameManager.GetSpikeManager();
@@ -194,7 +196,7 @@ public class PlayerManager : MonoBehaviour
             if (this.isGrounded)
             {
                 // On Left Wall, does the Player leave the Left Wall
-                if (Input.GetButtonDown("Jump"))
+                if (this.inputManager.GetButtonDown("Jump"))
                 {
                     moveOffWallTime = Time.time;
 
@@ -207,7 +209,7 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 // Moving off Right Wall, Do We Get Double Click ?
-                if (Input.GetButtonDown("Jump") &&
+                if (this.inputManager.GetButtonDown("Jump") &&
                     ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) &&
                     (acceleration == Vector3.zero))
                 {
@@ -245,7 +247,7 @@ public class PlayerManager : MonoBehaviour
             if (this.isGrounded)
             {
                 // On Right Wall, does the Player leave the Right Wall
-                if (Input.GetButtonDown("Jump"))
+                if (this.inputManager.GetButtonDown("Jump"))
                 {
                     this.moveOffWallTime = Time.time;
 
@@ -258,7 +260,7 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 // Moving off Left Wall, Do We Get Double Click ?
-                if (Input.GetButtonDown("Jump") &&
+                if (this.inputManager.GetButtonDown("Jump") &&
                     ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) &&
                     (acceleration == Vector3.zero))
                 {

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Objects and Scripts")]
     [SerializeField] private GameObject gameScreenUI;
     [SerializeField] private GameObject SNEKBox;
+    [SerializeField] private InputManager inputManager;
     [SerializeField] private SpikeManager spikeManager;
     [SerializeField] private PickUpManager pickUpManager;
     [Space(10)]
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
 
         this.gameScreen.SetGameManager(this);
         this.playerManager.SetGameManager(this);
+        this.inputManager.SetGameManager(this);
         this.spikeManager.SetGameManager(this);
         this.pickUpManager.SetGameManager(this);
     }
@@ -58,6 +60,11 @@ public class GameManager : MonoBehaviour
     public PlayerManager GetPlayerManager()
     {
         return this.playerManager;
+    }
+
+    public InputManager GetInputManager()
+    {
+        return this.inputManager;
     }
 
     public SpikeManager GetSpikeManager()
@@ -131,6 +138,7 @@ public class GameManager : MonoBehaviour
             this.coinScore = 0;
             this.spikeScore = 0;
 
+            this.inputManager.GameStart();
             this.gameScreen.GameStart();
             this.playerManager.GameStart();
             this.spikeManager.GameStart();
@@ -148,6 +156,7 @@ public class GameManager : MonoBehaviour
         if (this.gameRunning)
         {
             this.gamePaused = true;
+            this.gameScreen.ShowPauseView();
 
             Time.timeScale = 0.0f;
             AudioListener.pause = true;
@@ -159,6 +168,7 @@ public class GameManager : MonoBehaviour
         if (this.gameRunning)
         {
             this.gamePaused = false;
+            this.gameScreen.ShowGameView();
 
             Time.timeScale = 1.0f;
             AudioListener.pause = false;
@@ -171,6 +181,7 @@ public class GameManager : MonoBehaviour
         {
             this.gameRunning = false;
 
+            this.inputManager.GameOver();
             this.playerManager.GameOver();
             this.spikeManager.GameOver();
             this.pickUpManager.GameOver();
