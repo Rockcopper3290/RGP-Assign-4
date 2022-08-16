@@ -165,6 +165,7 @@ public class GameManager : MonoBehaviour
 
     public void GameResume()
     {
+        Debug.Log("Game Resume");
         if (this.gameRunning)
         {
             this.gamePaused = false;
@@ -210,7 +211,7 @@ public class GameManager : MonoBehaviour
     {       
         if (!this.gameRunning)
         {
-            if (Input.GetButtonDown("Jump"))
+            if (this.inputManager.GetButtonDown("Jump"))
                 GameStart();
 
             return;

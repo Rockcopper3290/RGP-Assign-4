@@ -16,7 +16,7 @@ public class SpikeManager : MonoBehaviour
     [SerializeField] private float probOfDoubleSpike = 0.1f;
     [SerializeField] private float probOfTripleSpike = 0.1f;
     [SerializeField] private float probOfQuadrupleSpike = 0.1f;
-    [SerializeField] private int maxNumberOfSpikes = 5;
+    [SerializeField] private int maxNumberOfSpikes = 10;
     [Space(10)]
 
     // Position Control
@@ -56,6 +56,10 @@ public class SpikeManager : MonoBehaviour
 
     private void CreateSpike(string spikeType, Vector3 position)
     {
+        // If the Spike is too close to a PickUp, abort this attempt
+        if (TooCloseToPickUp(position))
+            return;
+
         // Instantiate a Spike from the Prefab
         GameObject spike = Instantiate(spikePrefab);
 
@@ -77,44 +81,33 @@ public class SpikeManager : MonoBehaviour
         string spikeType;
         Vector3 position;
 
-        // Do we create a Left or Right Spike ?
+        // Left or Right Spike ?
         if (Random.Range(0.0f, 1.0f) < 0.5f)
         {
             spikeType = "Left Spike";
             position = new Vector3(-3.5f, 15.0f, 0.2f);
         }
-
         else
         {
             spikeType = "Right Spike";
             position = new Vector3(3.5f, 15.0f, 0.2f);
         }
 
-        // If the Spike is too close to a PickUp, abort this attempt
-        if (TooCloseToPickUp(position))
-            return;
+        // How Many Spikes ?
+        int numberOfSpikes;
+        int possibleNumOfSpikes = Mathf.Min(4, (this.gameManager.GameScore() / 100) + 1);
 
-        CreateSpike(spikeType, position);
+        if      ((possibleNumOfSpikes >= 4) && (Random.Range(0.0f, 1.0f) < this.probOfQuadrupleSpike)) numberOfSpikes = 4;
+        else if ((possibleNumOfSpikes >= 3) && (Random.Range(0.0f, 1.0f) < this.probOfTripleSpike))    numberOfSpikes = 3;
+        else if ((possibleNumOfSpikes >= 2) && (Random.Range(0.0f, 1.0f) < this.probOfDoubleSpike))    numberOfSpikes = 2;
+        else                                                                                           numberOfSpikes = 1;
 
-        // Do we create a Double Spike ?
-        if (Random.Range(0.0f, 1.0f) < this.probOfDoubleSpike && gameManager.GameTime() > 20.0f)
-            CreateSpike(spikeType, position + new Vector3(0.0f, 2.0f, 0.0f));
+        // Create Spikes
+        if (numberOfSpikes >= 1) CreateSpike(spikeType, position);
+        if (numberOfSpikes >= 2) CreateSpike(spikeType, position + new Vector3(0.0f, 2.0f, 0.0f));
+        if (numberOfSpikes >= 3) CreateSpike(spikeType, position + new Vector3(0.0f, 4.0f, 0.0f));
+        if (numberOfSpikes >= 4) CreateSpike(spikeType, position + new Vector3(0.0f, 6.0f, 0.0f));
         
-        // Do we create a Triple Spike ?
-        if (Random.Range(0.0f, 1.0f) < this.probOfTripleSpike && gameManager.GameTime() > 40.0f)
-        {
-            CreateSpike(spikeType, position + new Vector3(0.0f, 2.0f, 0.0f));
-            CreateSpike(spikeType, position + new Vector3(0.0f, 4.0f, 0.0f));
-        }
-
-        // Do we create a Quadruple Spike ?
-        if (Random.Range(0.0f, 1.0f) < this.probOfQuadrupleSpike && gameManager.GameTime() > 60.0f)
-        {
-            CreateSpike(spikeType, position + new Vector3(0.0f, 2.0f, 0.0f));
-            CreateSpike(spikeType, position + new Vector3(0.0f, 4.0f, 0.0f));
-            CreateSpike(spikeType, position + new Vector3(0.0f, 6.0f, 0.0f));
-        }
-
         // Schedule the next Spike
         ScheduleNextSpike();
     }
