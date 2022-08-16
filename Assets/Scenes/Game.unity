@@ -1266,7 +1266,7 @@ MonoBehaviour:
   gameView: {fileID: 376209819}
   pauseButton: {fileID: 1926608139}
   scoreText: {fileID: 1856763595}
-  tweenyScore: {fileID: 1856763597}
+  pulseScore: {fileID: 1856763597}
   pauseView: {fileID: 909736561}
 --- !u!1 &376209819
 GameObject:
@@ -3671,9 +3671,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1856763594}
+  - component: {fileID: 1856763597}
   - component: {fileID: 1856763596}
   - component: {fileID: 1856763595}
-  - component: {fileID: 1856763597}
   m_Layer: 0
   m_Name: Score
   m_TagString: Untagged
@@ -3844,11 +3844,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1856763593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e689148188aa2459b8b9fb77acdee0, type: 3}
+  m_Script: {fileID: 11500000, guid: 36f18db199325414db05b3587a4f89b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boingStartScaleUp: 20
-  boingDuration: 0.8
+  maxScaleChange: 0.2
+  pulseDuration: 0.8
 --- !u!1001 &1900229847
 PrefabInstance:
   m_ObjectHideFlags: 0

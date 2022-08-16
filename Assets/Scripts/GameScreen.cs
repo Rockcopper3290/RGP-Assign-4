@@ -26,7 +26,7 @@ public class GameScreen : MonoBehaviour
     [SerializeField] private GameObject gameView;
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private TweenyScore tweenyScore;
+    [SerializeField] private PulseScale pulseScore;
     [Space(10)]
 
     // Pause View
@@ -84,9 +84,9 @@ public class GameScreen : MonoBehaviour
 
     }
 
-    public void BoingScore()
+    public void PulseScore()
     {
-        this.tweenyScore.BoingScore();
+        this.pulseScore.Pulse();
     }
     
     // Awake is called before any Start methods, even if the GameObject is disabled
