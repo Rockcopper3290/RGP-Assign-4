@@ -14,6 +14,8 @@ public class SpikeManager : MonoBehaviour
     [SerializeField] private float minTimeBetweenSpikes = 0.5f;
     [SerializeField] private float maxTimeBetweenSpikes = 1.0f;
     [SerializeField] private float probOfDoubleSpike = 0.1f;
+    [SerializeField] private float probOfTripleSpike = 0.1f;
+    [SerializeField] private float probOfQuadrupleSpike = 0.1f;
     [SerializeField] private int maxNumberOfSpikes = 5;
     [Space(10)]
 
@@ -95,8 +97,23 @@ public class SpikeManager : MonoBehaviour
         CreateSpike(spikeType, position);
 
         // Do we create a Double Spike ?
-        if (Random.Range(0.0f, 1.0f) < this.probOfDoubleSpike)
+        if (Random.Range(0.0f, 1.0f) < this.probOfDoubleSpike && gameManager.GameTime() > 20.0f)
             CreateSpike(spikeType, position + new Vector3(0.0f, 2.0f, 0.0f));
+        
+        // Do we create a Triple Spike ?
+        if (Random.Range(0.0f, 1.0f) < this.probOfTripleSpike && gameManager.GameTime() > 40.0f)
+        {
+            CreateSpike(spikeType, position + new Vector3(0.0f, 2.0f, 0.0f));
+            CreateSpike(spikeType, position + new Vector3(0.0f, 4.0f, 0.0f));
+        }
+
+        // Do we create a Quadruple Spike ?
+        if (Random.Range(0.0f, 1.0f) < this.probOfQuadrupleSpike && gameManager.GameTime() > 60.0f)
+        {
+            CreateSpike(spikeType, position + new Vector3(0.0f, 2.0f, 0.0f));
+            CreateSpike(spikeType, position + new Vector3(0.0f, 4.0f, 0.0f));
+            CreateSpike(spikeType, position + new Vector3(0.0f, 6.0f, 0.0f));
+        }
 
         // Schedule the next Spike
         ScheduleNextSpike();

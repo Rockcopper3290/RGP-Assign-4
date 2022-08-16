@@ -152,6 +152,8 @@ public class PlayerManager : MonoBehaviour
 
         if (collision.gameObject.tag == "Shield")
         {
+            this.shieldSound.Play();
+
             this.pickUpManager.DestroyPickUp(collision.gameObject);
 
             this.isShielded = true;
@@ -214,7 +216,7 @@ public class PlayerManager : MonoBehaviour
                     (acceleration == Vector3.zero))
                 {
                     // Jump over Spike, on Right Wall
-                    acceleration = new Vector3(this.moveSpeed * 0.125f, 0.0f, 0.0f);
+                    acceleration = new Vector3(this.moveSpeed * 0.1f, 0.0f, 0.0f);
                     isMovingLeft = false;
                 }
 
@@ -265,7 +267,7 @@ public class PlayerManager : MonoBehaviour
                     (acceleration == Vector3.zero))
                 {
                     // Jump over Spike, on Left Wall
-                    acceleration = new Vector3(-this.moveSpeed * 0.125f, 0.0f, 0.0f);
+                    acceleration = new Vector3(-this.moveSpeed * 0.1f, 0.0f, 0.0f);
                     isMovingLeft = true;
                 }
 
