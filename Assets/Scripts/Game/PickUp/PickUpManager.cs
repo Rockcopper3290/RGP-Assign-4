@@ -20,12 +20,9 @@ public class PickUpManager : MonoBehaviour
     [SerializeField] private int maxNumberOfPickUps = 2;
     [Space(10)]
 
-    // Position Control
-    [Header("Pickup Position Control")]
-    [SerializeField] private float minDistFromSpike = 2.5f;
-
     // Game Manager
     private GameManager gameManager;
+    private DifficultyManager difficulty;
     private SpikeManager spikeManager;
 
     // PickUp Management
@@ -36,6 +33,7 @@ public class PickUpManager : MonoBehaviour
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
+        this.difficulty = gameManager.GetDifficultyManager();
         this.spikeManager = gameManager.GetSpikeManager();
     }
 
@@ -46,9 +44,11 @@ public class PickUpManager : MonoBehaviour
 
     private bool TooCloseToSpike(Vector3 pickUpPosition)
     {
+        float minDistanceFromSpike = this.difficulty.MinimumDistanceFromSpike();
+
         foreach (GameObject spike in this.spikeManager.Spikes())
         {
-            if (Vector3.Distance(pickUpPosition, spike.transform.position) < this.minDistFromSpike)
+            if (Vector3.Distance(pickUpPosition, spike.transform.position) < minDistanceFromSpike)
                 return true;
         }
 
@@ -61,7 +61,6 @@ public class PickUpManager : MonoBehaviour
         Vector3 position;
 
         // Randomly poistion the PickUp across the X-axis
-        // TODO Create Constants for the hard coded numbers, similar with Spike Manager
         position = new Vector3(Random.Range(-2.0f, 2.0f), 15.0f, 0.0f);
 
         // If the PickUp is too close to a Spike, abort this attempt.

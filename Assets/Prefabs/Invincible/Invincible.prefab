@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 712604889534597658}
   - component: {fileID: 7906933568148609517}
   m_Layer: 0
-  m_Name: Invincible_Variant_1
+  m_Name: Invincible
   m_TagString: Invincible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -14,12 +14,14 @@ public class Spike : MonoBehaviour
 
     // Game Manager
     private GameManager gameManager;
+    private DifficultyManager difficulty;
     private SpikeManager spikeManager;
     private PlayerManager playerManager;
 
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
+        this.difficulty = gameManager.GetDifficultyManager();
         this.spikeManager = gameManager.GetSpikeManager();
         this.playerManager = gameManager.GetPlayerManager();
     }
@@ -53,7 +55,7 @@ public class Spike : MonoBehaviour
         if (this.gameManager.GameRunning())
         {
             // Move Spike
-            gameObject.transform.position += new Vector3(0.0f, (-this.gameManager.GameSpeed() * Time.deltaTime), 0.0f);
+            gameObject.transform.position += new Vector3(0.0f, (-this.difficulty.GameSpeed() * Time.deltaTime), 0.0f);
 
             // Should Spike be the defaultMaterial ?
             if (!this.playerManager.PlayerIsInvincible() && spikeRenderer.sharedMaterial != this.defaultMaterial)

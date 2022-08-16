@@ -9,11 +9,13 @@ public class PickUp : MonoBehaviour
 
     // Game Manager
     private GameManager gameManager;
+    private DifficultyManager difficulty;
     private PickUpManager pickUpManager;
 
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
+        this.difficulty = gameManager.GetDifficultyManager();
         this.pickUpManager = gameManager.GetPickUpManager();
     }
 
@@ -25,7 +27,7 @@ public class PickUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position += new Vector3(0.0f, (-this.gameManager.GameSpeed() * Time.deltaTime), 0.0f);
+        gameObject.transform.position += new Vector3(0.0f, (-this.difficulty.GameSpeed() * Time.deltaTime), 0.0f);
         gameObject.transform.Rotate(this.rotatePerSecond * Time.deltaTime);
     }
 

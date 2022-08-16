@@ -6,26 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Set in Unity Inspector
+    // References Objects and Scripts
     [Header("Objects and Scripts")]
+    [SerializeField] private DifficultyManager difficulty;
     [SerializeField] private GameObject gameScreenUI;
-    [SerializeField] private GameObject SNEKBox;
+    [SerializeField] private PlayerManager playerManager;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private SpikeManager spikeManager;
     [SerializeField] private PickUpManager pickUpManager;
     [Space(10)]
 
     private GameScreen gameScreen;
-    private PlayerManager playerManager;
 
-    // Movement Speed
-    [Header("Movement Speed")]
-    [SerializeField] private float initialSpeed = 10.0f;
-    [SerializeField] private float speedIncreasePerSec = 0.05f;
-    [SerializeField] private float maxSpeed = 20.0f;
-    [Space(10)]
-
-    // Background Music
+    // Music
     [Header("Music")]
     [SerializeField] private AudioSource backgroundMusic;
 
@@ -43,13 +36,18 @@ public class GameManager : MonoBehaviour
 
     private void Awake() {
         this.gameScreen = gameScreenUI.GetComponent<GameScreen>();
-        this.playerManager = SNEKBox.GetComponent<PlayerManager>();
 
+        this.inputManager.SetGameManager(this);
+        this.difficulty.SetGameManager(this);
         this.gameScreen.SetGameManager(this);
         this.playerManager.SetGameManager(this);
-        this.inputManager.SetGameManager(this);
         this.spikeManager.SetGameManager(this);
         this.pickUpManager.SetGameManager(this);
+    }
+
+    public DifficultyManager GetDifficultyManager()
+    {
+        return this.difficulty;
     }
 
     public GameScreen GetGameScreen()
@@ -102,11 +100,6 @@ public class GameManager : MonoBehaviour
         return this.gameTime;
     }
 
-    public float GameSpeed()
-    {
-        return (Mathf.Min(this.initialSpeed + (GameTime() * this.speedIncreasePerSec), this.maxSpeed));
-    }
-
     public int GameScore()
     {
         return (int)Mathf.Floor(this.gameTime) + (this.coinScore + this.spikeScore);
@@ -139,6 +132,7 @@ public class GameManager : MonoBehaviour
             this.spikeScore = 0;
 
             this.inputManager.GameStart();
+            this.difficulty.GameStart();
             this.gameScreen.GameStart();
             this.playerManager.GameStart();
             this.spikeManager.GameStart();
@@ -165,7 +159,6 @@ public class GameManager : MonoBehaviour
 
     public void GameResume()
     {
-        Debug.Log("Game Resume");
         if (this.gameRunning)
         {
             this.gamePaused = false;
@@ -183,6 +176,8 @@ public class GameManager : MonoBehaviour
             this.gameRunning = false;
 
             this.inputManager.GameOver();
+            this.difficulty.GameOver();
+            this.gameScreen.GameOver();
             this.playerManager.GameOver();
             this.spikeManager.GameOver();
             this.pickUpManager.GameOver();

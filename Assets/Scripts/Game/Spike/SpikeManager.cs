@@ -19,12 +19,9 @@ public class SpikeManager : MonoBehaviour
     [SerializeField] private int maxNumberOfSpikes = 10;
     [Space(10)]
 
-    // Position Control
-    [Header("Spike Position Control")]
-    [SerializeField] private float minDistFromPickUp = 2.5f;
-
     // Game Manager
     private GameManager gameManager;
+    private DifficultyManager difficulty;
     private PickUpManager pickUpManager;
 
     // Spike Management
@@ -35,6 +32,7 @@ public class SpikeManager : MonoBehaviour
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
+        this.difficulty = gameManager.GetDifficultyManager();
         this.pickUpManager = gameManager.GetPickUpManager();
     }
 
@@ -45,9 +43,11 @@ public class SpikeManager : MonoBehaviour
 
     private bool TooCloseToPickUp(Vector3 spikePosition)
     {
+        float minDistanceFromSpike = this.difficulty.MinimumDistanceFromSpike();
+
         foreach (GameObject pickup in this.pickUpManager.PickUps())
         {
-            if (Vector3.Distance(spikePosition, pickup.transform.position) < this.minDistFromPickUp)
+            if (Vector3.Distance(spikePosition, pickup.transform.position) < minDistanceFromSpike)
                 return true;
         }
 
@@ -95,7 +95,7 @@ public class SpikeManager : MonoBehaviour
 
         // How Many Spikes ?
         int numberOfSpikes;
-        int possibleNumOfSpikes = Mathf.Min(4, (this.gameManager.GameScore() / 100) + 1);
+        int possibleNumOfSpikes = this.difficulty.PossibleNumberOfSpikes();
 
         if      ((possibleNumOfSpikes >= 4) && (Random.Range(0.0f, 1.0f) < this.probOfQuadrupleSpike)) numberOfSpikes = 4;
         else if ((possibleNumOfSpikes >= 3) && (Random.Range(0.0f, 1.0f) < this.probOfTripleSpike))    numberOfSpikes = 3;
