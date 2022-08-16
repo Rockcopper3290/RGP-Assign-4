@@ -5,23 +5,35 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class StartMenu: MonoBehaviour
+public class SplashScreen: MonoBehaviour
 {
     // Set in Unity Inspector
-    public TMP_Text startGameText;
-    public TMP_Text exitButtonText;
-    public AudioSource music;
+    [SerializeField] private TMP_Text startGameText;
+    [SerializeField] private TMP_Text exitButtonText;
+    [Space(10)]
 
-    // Game Over Screen Management
-    private float timeSinceStart;
+    // Music
+    [Header("Music")]
+    [SerializeField] private AudioSource splashMusic;
+
+    public void Tutorial()
+    {
+        //splashMusic.Stop();
+        
+        SceneManager.LoadScene("Game");
+    }
 
     public void PlayGame()
     {
+        //splashMusic.Stop();
+        
         SceneManager.LoadScene("Game");
     }
 
     public void QuitGame()
     {
+        //splashMusic.Stop();
+        
         Application.Quit();
     }
 
@@ -34,7 +46,7 @@ public class StartMenu: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //music.Play();
+        //splashMusic.Play();
     }
 
     // Update is called once per frame
