@@ -286,7 +286,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 67169877}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -295,8 +295,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.89, y: -0.94}
-  m_SizeDelta: {x: 1189.83, y: 2015.39}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1200, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &67169879
 Canvas:
@@ -1286,7 +1286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &376209820
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1903,7 +1903,6 @@ GameObject:
   - component: {fileID: 635443499}
   - component: {fileID: 635443498}
   - component: {fileID: 635443497}
-  - component: {fileID: 635443500}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -2026,27 +2025,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635443495}
   m_CullTransparentMesh: 1
---- !u!223 &635443500
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635443495}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: -78773249
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1001 &673143934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2904,7 +2882,6 @@ GameObject:
   - component: {fileID: 1440740520}
   - component: {fileID: 1440740519}
   - component: {fileID: 1440740518}
-  - component: {fileID: 1440740521}
   m_Layer: 5
   m_Name: PlayButton
   m_TagString: Untagged
@@ -3027,27 +3004,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440740516}
   m_CullTransparentMesh: 1
---- !u!223 &1440740521
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440740516}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: -78773249
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &1577279361
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class SpikeManager : MonoBehaviour
 
     // Spike Behavour, 
     [Header("Spike Behavour")]
-    [SerializeField] private float minTimeBetweenSpikes = 0.5f;
+    [SerializeField] private float minTimeBetweenSpikes = 0.6f;
     [SerializeField] private float maxTimeBetweenSpikes = 1.0f;
     [SerializeField] private float probOfDoubleSpike = 0.1f;
     [SerializeField] private float probOfTripleSpike = 0.1f;
