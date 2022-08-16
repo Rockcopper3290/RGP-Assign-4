@@ -52,6 +52,9 @@ TagManager:
   - name: Background
     uniqueID: 2591264163
     locked: 0
+  - name: Pause Overlay
+    uniqueID: 4199460829
+    locked: 0
   - name: UI
     uniqueID: 4216194047
     locked: 0
