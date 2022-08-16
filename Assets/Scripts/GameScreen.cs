@@ -68,7 +68,7 @@ public class GameScreen : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("StartMenu");
+        SceneManager.LoadScene("Splash");
     }
 
     public void GameStart()
