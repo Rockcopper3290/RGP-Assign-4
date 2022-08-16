@@ -28,10 +28,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Color defaultColour;
     [SerializeField] private Color powerUpColour;
 
-    // Double Click Detection
-    private float moveOffWallTime;
-    private float doubleClickDelay = 0.15f;
-
     // Player Properties, Movement
     private Vector3 velocity;
     private Vector3 acceleration;
@@ -200,8 +196,6 @@ public class PlayerManager : MonoBehaviour
                 // On Left Wall, does the Player leave the Left Wall
                 if (this.inputManager.GetButtonDown("Jump"))
                 {
-                    moveOffWallTime = Time.time;
-
                     velocity = new Vector3(this.moveSpeed, 0.0f, 0.0f);
                     acceleration = Vector3.zero;
                     isGrounded = false;
@@ -210,12 +204,12 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                // Moving off Right Wall, Do We Get Double Click ?
+                // Moving off Right Wall, Do We Get Go Back Click ?
                 if (this.inputManager.GetButtonDown("Jump") &&
-                    ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) &&
+                    (transform.position.x >= -2.0f) &&
                     (acceleration == Vector3.zero))
                 {
-                    // Jump over Spike, on Right Wall
+                    // Go Back to Right Wall
                     acceleration = new Vector3(this.moveSpeed * 0.1f, 0.0f, 0.0f);
                     isMovingLeft = false;
                 }
@@ -232,9 +226,9 @@ public class PlayerManager : MonoBehaviour
                 // The Player is moving Left
                 else
                 {
-                    velocity += acceleration;
+                    velocity = Vector3.ClampMagnitude(velocity + acceleration, this.moveSpeed);
                     Vector3 newPosition = transform.position + (this.velocity * Time.deltaTime);
-                    transform.position = new Vector3(Mathf.Max(-3.0f, newPosition.x), newPosition.y, newPosition.z);
+                    transform.position = new Vector3(Mathf.Clamp(newPosition.x, -3.0f, 3.0f), newPosition.y, newPosition.z);
 
                     // Rotate as we move
                     float xPosition = transform.position.x;
@@ -251,8 +245,6 @@ public class PlayerManager : MonoBehaviour
                 // On Right Wall, does the Player leave the Right Wall
                 if (this.inputManager.GetButtonDown("Jump"))
                 {
-                    this.moveOffWallTime = Time.time;
-
                     velocity = new Vector3(-this.moveSpeed, 0.0f, 0.0f);
                     acceleration = Vector3.zero;
                     isGrounded = false;
@@ -261,12 +253,12 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                // Moving off Left Wall, Do We Get Double Click ?
+                // Moving off Left Wall, Do We Get Go Back Click ?
                 if (this.inputManager.GetButtonDown("Jump") &&
-                    ((this.moveOffWallTime - Time.time) < this.doubleClickDelay) &&
+                    (transform.position.x <= 2.0f) &&
                     (acceleration == Vector3.zero))
                 {
-                    // Jump over Spike, on Left Wall
+                    // Go Back to Left Wall
                     acceleration = new Vector3(-this.moveSpeed * 0.1f, 0.0f, 0.0f);
                     isMovingLeft = true;
                 }
@@ -283,9 +275,9 @@ public class PlayerManager : MonoBehaviour
                 // The Player is moving Right
                 else
                 {
-                    velocity += acceleration;
+                    velocity = Vector3.ClampMagnitude(velocity + acceleration, this.moveSpeed);
                     Vector3 newPosition = transform.position + (this.velocity * Time.deltaTime);
-                    transform.position = new Vector3(Mathf.Min(3.0f, newPosition.x), newPosition.y, newPosition.z);
+                    transform.position = new Vector3(Mathf.Clamp(newPosition.x, -3.0f, 3.0f), newPosition.y, newPosition.z);
 
                     // Rotate as we move
                     float xPosition = transform.position.x;
