@@ -80,6 +80,10 @@ PrefabInstance:
       value: Spike prefab Variant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8fe3ed27812ec2240ba2a7c588e49640, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8fe3ed27812ec2240ba2a7c588e49640, type: 3}
       propertyPath: m_TagString
       value: Left Spike
       objectReference: {fileID: 0}
