@@ -44,7 +44,7 @@ public class Tutorial
         this.events.Add(new TEInput  (time + 2.80f, "Jump", "", "Move and collect Coin"));
 
         // Reversing Direction (Player starts on right, ends on right)
-        time = 6.90f;
+        time = 7.00f;
         this.events.Add(new TEMessage(time + 0.00f, "Jump over a spike"));
         this.events.Add(new TEMessage(time + 1.50f, ""));
         this.events.Add(new TESpike  (time + 0.50f, "Right Spike"));
@@ -55,18 +55,18 @@ public class Tutorial
         this.events.Add(new TEInput  (time + 2.90f, "Jump", "Key", "Press Space to reverse"));
 
         // Shield (Player starts on right, ends on left)
-        time = 10.10f;
+        time = 11.00f;
         this.events.Add(new TEMessage(time + 0.00f, "Shield protects you"));
         this.events.Add(new TEMessage(time + 1.50f, ""));
         this.events.Add(new TEPickUp (time + 0.50f, "Shield", 0.0f));
-        this.events.Add(new TESpike  (time + 1.25f, "Left Spike"));
-        this.events.Add(new TEInput  (time + 1.80f, "Jump", "", "Move and collect Shield"));
+        this.events.Add(new TESpike  (time + 2.50f, "Left Spike"));
+        this.events.Add(new TEInput  (time + 1.90f, "Jump", "", "Move and collect Shield"));
         this.events.Add(new TEMessage(time + 2.00f, "Shield protects you from one Spike"));
         this.events.Add(new TEMessage(time + 3.50f, ""));
 
         // Invincible (Player starts on left, ends on right)
-        time = 13.70f;
-        this.events.Add(new TEMessage(time + 0.00f, "Invincibility !"));
+        time = 16.00f;
+        this.events.Add(new TEMessage(time + 0.00f, "Invincibility!"));
         this.events.Add(new TEMessage(time + 1.50f, ""));
         this.events.Add(new TEPickUp (time + 0.50f, "Invincible", 0.0f));
         this.events.Add(new TESpike  (time + 1.50f, "Right Spike"));
@@ -75,12 +75,12 @@ public class Tutorial
         this.events.Add(new TEInput  (time + 1.80f, "Jump", "", "Move and become Invincible"));
         this.events.Add(new TESpike  (time + 2.50f, "Left Spike"));
         this.events.Add(new TESpike  (time + 3.00f, "Left Spike"));
-        this.events.Add(new TEMessage(time + 2.00f, "Beware it wares off !"));
+        this.events.Add(new TEMessage(time + 2.00f, "Beware, it wears off!"));
         this.events.Add(new TEMessage(time + 4.00f, ""));
 
         // End tutorial with a TEMessage sequence, not a TEInput, or you will get stuck
-        time = 18.20f;
-        this.events.Add(new TEMessage(time + 0.00f, "Game On !"));
+        time = 20.00f;
+        this.events.Add(new TEMessage(time + 0.00f, "Good luck!"));
         this.events.Add(new TEMessage(time + 1.00f, ""));
         
         // How to Create PickUps, xPosition can be -2.0f to 2.0f
