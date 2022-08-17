@@ -108,13 +108,13 @@ public class GameManager : MonoBehaviour
     public void ScoreCoinPickup()
     {
         this.coinScore += GameManager.coinValue;
-        this.gameScreen.PulseScore();
+        this.gameScreen.PulseScore(this.gameScreen.coinColor);
     }
 
-    public void ScoreSpike()
+    public void ScoreSpike(Color32 color)
     {
         this.spikeScore += GameManager.spikeValue;
-        this.gameScreen.PulseScore();
+        this.gameScreen.PulseScore(color);
     }
 
     public void GameStart()

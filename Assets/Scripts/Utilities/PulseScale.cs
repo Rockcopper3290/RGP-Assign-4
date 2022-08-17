@@ -11,10 +11,10 @@ public class PulseScale : MonoBehaviour
     [SerializeField] private float pulseDuration = 0.8f;
 
     private Vector3 originalScale;
-    private Vector3 pulsedScale;    // thing pops to this scale at start of boing
+    private Vector3 pulsedScale;    // GameObject changes to this scale at start of pulse
 
     private Tween tween = null;
-    private Vector3 tweenedScale;       // vector being updated by DoTween
+    private Vector3 tweenedScale;   // Vector being updated by DoTween
 
     // Start is called before the first frame update
     void Start()

@@ -26,12 +26,22 @@ public class GameScreen : MonoBehaviour
     [SerializeField] private GameObject gameView;
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private PulseScale pulseScore;
+    [SerializeField] private PulseScale pulseScoreScale;
+    [SerializeField] private PulseTMProColor pulseScoreColor;
     [Space(10)]
 
     // Pause View
     [Header("Pause View")]
     [SerializeField] private GameObject pauseView;
+
+
+    // Colors
+    [Header("Color Pallet")]
+    [ColorUsageAttribute(false,false)] public Color32 coinColor;
+    [ColorUsageAttribute(false,false)] public Color32 shieldColor;
+    [ColorUsageAttribute(false,false)] public Color32 invincibleColor;
+    [ColorUsageAttribute(false,false)] public Color32 spikeColor;
+    [ColorUsageAttribute(false,false)] public Color32 spikeWhileInvincibleColor;
 
     // Game Manager
     private GameManager gameManager;
@@ -86,7 +96,14 @@ public class GameScreen : MonoBehaviour
 
     public void PulseScore()
     {
-        this.pulseScore.Pulse();
+       this.pulseScoreScale.Pulse();
+    }
+
+    public void PulseScore(Color32 color)
+    {
+        Debug.Log("GameScreen.PulseScore() color: " + color);
+        this.pulseScoreScale.Pulse();
+        this.pulseScoreColor.Pulse(color);
     }
     
     // Awake is called before any Start methods, even if the GameObject is disabled

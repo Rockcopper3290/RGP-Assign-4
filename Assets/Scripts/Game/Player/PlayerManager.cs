@@ -108,24 +108,20 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    private void OnHitCoin(Collision collision)
-    {
-        this.pickUpManager.DestroyPickUp(collision.gameObject);
-
-        this.gameManager.ScoreCoinPickup();
-        this.coinSound.Play();
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Coin")
         {
-            OnHitCoin(collision);
+            this.pickUpManager.DestroyPickUp(collision.gameObject);
+
+            this.gameManager.ScoreCoinPickup();
+            this.coinSound.Play();
         }
        
         if (collision.gameObject.tag == "Invincible")
         {
             this.pickUpManager.DestroyPickUp(collision.gameObject);
+            this.gameScreen.PulseScore(this.gameScreen.invincibleColor);
 
             this.invincibleTimeRemaining = this.invincibleTime;
             this.invincibleSound.Play();
@@ -149,6 +145,7 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.tag == "Shield")
         {
             this.shieldSound.Play();
+            this.gameScreen.PulseScore(this.gameScreen.shieldColor);
 
             this.pickUpManager.DestroyPickUp(collision.gameObject);
 
@@ -167,13 +164,13 @@ public class PlayerManager : MonoBehaviour
         {
             if (this.isInvincible)
             {
-                this.gameManager.ScoreSpike();
+                this.gameManager.ScoreSpike(this.gameScreen.spikeWhileInvincibleColor);
                 spikeDestroySound.Play();
                 this.spikeManager.DestroySpike(collision.gameObject);
             }
             else if (this.isShielded)
             {  
-                this.gameManager.ScoreSpike();
+                this.gameManager.ScoreSpike(this.gameScreen.spikeColor);
                 spikeDestroySound.Play();
                 this.spikeManager.DestroySpike(collision.gameObject);
 
