@@ -23,6 +23,7 @@ public class SpikeManager : MonoBehaviour
     private GameManager gameManager;
     private DifficultyManager difficulty;
     private PickUpManager pickUpManager;
+    private Tutorial tutorial;
 
     // Spike Management
     private float timeSinceLastSpike;
@@ -34,6 +35,7 @@ public class SpikeManager : MonoBehaviour
         this.gameManager = gameManager;
         this.difficulty = gameManager.GetDifficultyManager();
         this.pickUpManager = gameManager.GetPickUpManager();
+        this.tutorial = gameManager.GetTutorial();
     }
 
     public List<GameObject> Spikes()
@@ -54,8 +56,18 @@ public class SpikeManager : MonoBehaviour
         return false;
     }
 
-    private void CreateSpike(string spikeType, Vector3 position)
+    private void CreateSpike(string spikeType, float yOffset)
     {
+        Vector3 position;
+
+        // Spike Position
+        if (spikeType == "Left Spike")
+            position = new Vector3(-3.5f, 15.0f + yOffset, 0.2f);
+        else if (spikeType == "Right Spike")
+            position = new Vector3(3.5f, 15.0f + yOffset, 0.2f);
+        else
+            return;
+
         // If the Spike is too close to a PickUp, abort this attempt
         if (TooCloseToPickUp(position))
             return;
@@ -79,19 +91,12 @@ public class SpikeManager : MonoBehaviour
     private void GenerateSpike()
     {
         string spikeType;
-        Vector3 position;
 
         // Left or Right Spike ?
         if (Random.Range(0.0f, 1.0f) < 0.5f)
-        {
             spikeType = "Left Spike";
-            position = new Vector3(-3.5f, 15.0f, 0.2f);
-        }
         else
-        {
             spikeType = "Right Spike";
-            position = new Vector3(3.5f, 15.0f, 0.2f);
-        }
 
         // How Many Spikes ?
         int numberOfSpikes;
@@ -103,10 +108,10 @@ public class SpikeManager : MonoBehaviour
         else                                                                                           numberOfSpikes = 1;
 
         // Create Spikes
-        if (numberOfSpikes >= 1) CreateSpike(spikeType, position);
-        if (numberOfSpikes >= 2) CreateSpike(spikeType, position + new Vector3(0.0f, 2.0f, 0.0f));
-        if (numberOfSpikes >= 3) CreateSpike(spikeType, position + new Vector3(0.0f, 4.0f, 0.0f));
-        if (numberOfSpikes >= 4) CreateSpike(spikeType, position + new Vector3(0.0f, 6.0f, 0.0f));
+        if (numberOfSpikes >= 1) CreateSpike(spikeType, 0.0f);
+        if (numberOfSpikes >= 2) CreateSpike(spikeType, 2.0f); 
+        if (numberOfSpikes >= 3) CreateSpike(spikeType, 4.0f); 
+        if (numberOfSpikes >= 4) CreateSpike(spikeType, 6.0f);
         
         // Schedule the next Spike
         ScheduleNextSpike();
@@ -156,6 +161,16 @@ public class SpikeManager : MonoBehaviour
     {
         if (!this.gameManager.GameRunning())
             return;
+
+        if (this.gameManager.TutorialRunning())
+        {
+            TESpike spikeEvent = this.tutorial.GetSpikeEvent();
+
+            if (spikeEvent != null)
+                CreateSpike(spikeEvent.spikeType, spikeEvent.yOffset);
+
+            return;
+        }
 
         // Increment the Time Since Last Spike
         this.timeSinceLastSpike += Time.deltaTime;

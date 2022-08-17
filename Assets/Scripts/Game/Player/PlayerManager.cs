@@ -87,7 +87,8 @@ public class PlayerManager : MonoBehaviour
         this.isShielded = false;
 
         // Randomly choose which side to start on
-        if (Random.Range(0.0f, 1.0f) < 0.5f)
+        // Unless the Tutorial is Running, in which case always start on the Right
+        if ((Random.Range(0.0f, 1.0f) < 0.5f) || this.gameManager.TutorialRunning())
         {
             // Initial Move Right
             this.velocity = new Vector3(this.moveSpeed, 0.0f, 0.0f);

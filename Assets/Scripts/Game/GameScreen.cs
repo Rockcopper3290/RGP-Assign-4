@@ -33,7 +33,13 @@ public class GameScreen : MonoBehaviour
     // Pause View
     [Header("Pause View")]
     [SerializeField] private GameObject pauseView;
+    [Space(10)]
 
+    // Tutorial View
+    [Header("Tutorial View")]
+    [SerializeField] private GameObject tutorialView;
+    [SerializeField] private TMP_Text tutorialText;
+    [Space(10)]
 
     // Colors
     [Header("Color Pallet")]
@@ -47,12 +53,14 @@ public class GameScreen : MonoBehaviour
     private GameManager gameManager;
     private InputManager inputManager;
     private PlayerManager playerManager;
+    private Tutorial tutorial;
 
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
         this.inputManager = gameManager.GetInputManager();
         this.playerManager = gameManager.GetPlayerManager();
+        this.tutorial = gameManager.GetTutorial();
     }
 
     public void ShowInstructionsView()
@@ -94,6 +102,21 @@ public class GameScreen : MonoBehaviour
 
     }
 
+    public void TutorialStart()
+    {
+        this.tutorialView.SetActive(true);
+    }
+
+    public void TutorialOver()
+    {
+        this.tutorialView.SetActive(false);
+    }
+
+    public void SetTutorialText(string text)
+    {
+        this.tutorialText.text = text;
+    }
+
     public void PulseScore(Color32 color)
     {
         this.pulseScoreScale.Pulse();
@@ -119,14 +142,27 @@ public class GameScreen : MonoBehaviour
             return;
         }
 
-        if (this.inputManager.GetButtonDown("Pause"))
+        if (this.gameManager.GameRunning())
         {
-            if (!this.gameManager.GamePaused())
-                this.gameManager.GamePause();
-            else
-                this.gameManager.GameResume();
+            if (this.inputManager.GetButtonDown("Pause"))
+            {
+                if (!this.gameManager.GamePaused())
+                    this.gameManager.GamePause();
+                else
+                    this.gameManager.GameResume();
+            }
+
+            scoreText.text = gameManager.GameScore().ToString();
         }
 
-        scoreText.text = gameManager.GameScore().ToString();
+        if (this.gameManager.TutorialRunning())
+        {
+            TEMessage messageEvent = this.tutorial.GetMessageEvent();
+
+            if (messageEvent != null)
+                SetTutorialText(messageEvent.message);
+
+            return;
+        }
     }
 }
