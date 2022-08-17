@@ -18,10 +18,17 @@ public class InputManager : MonoBehaviour
 
     // Game Manager
     private GameManager gameManager;
+    private GameScreen gameScreen;
+    private Tutorial tutorial;
+
+    // Used by Tutorial. Need to receive a specific input
+    private TEInput requiredInput;
 
     public void SetGameManager(GameManager gameManager)
     {
         this.gameManager = gameManager;
+        this.gameScreen = gameManager.GetGameScreen();
+        this.tutorial = gameManager.GetTutorial();
     }
 
     public void GameStart()
@@ -76,9 +83,40 @@ public class InputManager : MonoBehaviour
         return false;
     }
 
+    private bool GetRequiredInput(string name)
+    {
+        if (!this.gameManager.TutorialRunning())
+            return Input.GetButtonDown(name);
+
+        if (this.requiredInput != null)
+        {
+            if (this.requiredInput.name != name)
+                return false;
+
+            if (Input.GetButtonDown(name))
+            {
+                if (this.requiredInput.inputType == "Mouse" && (WasMouseClick() == false))
+                    return false;
+
+                if (this.requiredInput.inputType == "Key" && (WasMouseClick() == true))
+                    return false;
+
+                // Resume Game
+                Time.timeScale = 1.0f;
+                // AudioListener.pause = false;
+                this.gameScreen.SetTutorialText("");
+
+                this.requiredInput = null;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public bool GetButtonDown(string name)
     {
-        bool result = Input.GetButtonDown(name);
+        bool result = GetRequiredInput(name);
 
         // Do not Jump if Pause Button Was Mouse Clicked
         if (result && (name == "Jump") && PauseButtonWasMouseClicked())
@@ -88,5 +126,26 @@ public class InputManager : MonoBehaviour
         }
 
         return result;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (this.gameManager.TutorialRunning())
+        {
+            TEInput inputEvent = this.tutorial.GetInputEvent();
+
+            if (inputEvent != null)
+            {
+                this.requiredInput = inputEvent;
+
+                // Halt Game until required input
+                Time.timeScale = 0.0f;
+                // AudioListener.pause = true;
+                this.gameScreen.SetTutorialText(this.requiredInput.message);
+            }
+
+            return;
+        }
     }
 }
