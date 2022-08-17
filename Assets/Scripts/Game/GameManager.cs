@@ -229,7 +229,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameData.tutorial)
+        if (GameData.tutorial == true)
             TutorialStart();
 
         if (GameData.gamesPlayed <= 0)

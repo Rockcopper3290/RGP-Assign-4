@@ -1270,6 +1270,8 @@ MonoBehaviour:
   pulseScoreScale: {fileID: 1856763597}
   pulseScoreColor: {fileID: 1856763598}
   pauseView: {fileID: 909736561}
+  tutorialView: {fileID: 1974622963}
+  tutorialText: {fileID: 1243512795}
   coinColor:
     serializedVersion: 2
     rgba: 1884927
@@ -3221,7 +3223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 339.15, y: 867}
+  m_AnchoredPosition: {x: 328.98096, y: 867}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1440740518
@@ -4292,7 +4294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 339.15, y: 867}
+  m_AnchoredPosition: {x: 328.98096, y: 867}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1926608141
