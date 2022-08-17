@@ -1266,8 +1266,24 @@ MonoBehaviour:
   gameView: {fileID: 376209819}
   pauseButton: {fileID: 1926608139}
   scoreText: {fileID: 1856763595}
-  pulseScore: {fileID: 1856763597}
+  pulseScoreScale: {fileID: 1856763597}
+  pulseScoreColor: {fileID: 1856763598}
   pauseView: {fileID: 909736561}
+  coinColor:
+    serializedVersion: 2
+    rgba: 1884927
+  shieldColor:
+    serializedVersion: 2
+    rgba: 16758528
+  invincibleColor:
+    serializedVersion: 2
+    rgba: 65299
+  spikeColor:
+    serializedVersion: 2
+    rgba: 255
+  spikeWhileInvincibleColor:
+    serializedVersion: 2
+    rgba: 37643
 --- !u!1 &376209819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,9 +1472,6 @@ MonoBehaviour:
   inputManager: {fileID: 1780585588}
   spikeManager: {fileID: 1625379791}
   pickUpManager: {fileID: 1208719404}
-  initialSpeed: 10
-  speedIncreasePerSec: 0.05
-  maxSpeed: 20
   backgroundMusic: {fileID: 443916017}
 --- !u!82 &443916017
 AudioSource:
@@ -2211,6 +2224,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54dea873e12e90443a7b602a601fb9d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialSpeed: 10
+  speedIncreasePerSec: 0.05
+  maxSpeed: 20
+  easiestMinDistFromSpike: 5
+  hardestMinDistFromSpike: 2.5
+  scoreForHardestMinDistFromSpike: 600
+  doubleSpikeFromScore: 150
+  tripleSpikeFromScore: 300
+  quadrupleSpikeFromScore: 450
 --- !u!4 &878577413
 Transform:
   m_ObjectHideFlags: 0
@@ -2644,7 +2666,6 @@ MonoBehaviour:
   minTimeBetweenPickUps: 1
   maxTimeBetweenPickUps: 2
   maxNumberOfPickUps: 2
-  minDistFromSpike: 2.5
 --- !u!1001 &1304344506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3199,7 +3220,6 @@ MonoBehaviour:
   probOfTripleSpike: 0.1
   probOfQuadrupleSpike: 0.1
   maxNumberOfSpikes: 10
-  minDistFromPickUp: 2.5
 --- !u!1 &1717099258
 GameObject:
   m_ObjectHideFlags: 0
@@ -3717,6 +3737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1856763594}
   - component: {fileID: 1856763597}
+  - component: {fileID: 1856763598}
   - component: {fileID: 1856763596}
   - component: {fileID: 1856763595}
   m_Layer: 0
@@ -3893,6 +3914,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxScaleChange: 0.2
+  pulseDuration: 0.8
+--- !u!114 &1856763598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856763593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8725609cf110c034e9303482446e5b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   pulseDuration: 0.8
 --- !u!1001 &1900229847
 PrefabInstance:

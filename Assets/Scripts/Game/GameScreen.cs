@@ -94,14 +94,8 @@ public class GameScreen : MonoBehaviour
 
     }
 
-    public void PulseScore()
-    {
-       this.pulseScoreScale.Pulse();
-    }
-
     public void PulseScore(Color32 color)
     {
-        Debug.Log("GameScreen.PulseScore() color: " + color);
         this.pulseScoreScale.Pulse();
         this.pulseScoreColor.Pulse(color);
     }
