@@ -57,7 +57,7 @@ public class PickUpManager : MonoBehaviour
         return false;
     }
 
-    private void CreatePickUp(string pickUpType, float xPosition)
+    private void CreatePickUp(string pickUpType, float xPosition, bool checkSpikeDistance = true)
     {
         GameObject pickUp;
 
@@ -65,7 +65,7 @@ public class PickUpManager : MonoBehaviour
         Vector3 position = new Vector3(xPosition, 15.0f, 0.0f);
 
         // If the PickUp is too close to a Spike, abort this attempt.
-        if (TooCloseToSpike(position))
+        if (checkSpikeDistance && TooCloseToSpike(position))
             return;
 
         if (pickUpType == "Coin")
@@ -159,11 +159,11 @@ public class PickUpManager : MonoBehaviour
             TEPickUp pickUpEvent = this.tutorial.GetPickUpEvent();
 
             if (pickUpEvent != null)
-                CreatePickUp(pickUpEvent.pickUpType, pickUpEvent.xPosition);
+                CreatePickUp(pickUpEvent.pickUpType, pickUpEvent.xPosition, false);
 
             return;
         }
-
+        
         // Increment the Time Since Last PickUp
         this.timeSinceLastPickUp += Time.deltaTime;
 

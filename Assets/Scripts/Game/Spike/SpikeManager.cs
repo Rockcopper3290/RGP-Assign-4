@@ -56,7 +56,7 @@ public class SpikeManager : MonoBehaviour
         return false;
     }
 
-    private void CreateSpike(string spikeType, float yOffset)
+    private void CreateSpike(string spikeType, float yOffset, bool checkPickUpDistance = true)
     {
         Vector3 position;
 
@@ -69,7 +69,7 @@ public class SpikeManager : MonoBehaviour
             return;
 
         // If the Spike is too close to a PickUp, abort this attempt
-        if (TooCloseToPickUp(position))
+        if (checkPickUpDistance && TooCloseToPickUp(position))
             return;
 
         // Instantiate a Spike from the Prefab
@@ -167,7 +167,7 @@ public class SpikeManager : MonoBehaviour
             TESpike spikeEvent = this.tutorial.GetSpikeEvent();
 
             if (spikeEvent != null)
-                CreateSpike(spikeEvent.spikeType, spikeEvent.yOffset);
+                CreateSpike(spikeEvent.spikeType, spikeEvent.yOffset, false);
 
             return;
         }

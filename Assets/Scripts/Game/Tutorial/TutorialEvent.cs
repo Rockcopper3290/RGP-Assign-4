@@ -8,7 +8,7 @@ public class TutorialEvent
 
     public TutorialEvent(float gameTime)
     {
-        this.gameTime = gameTime;
+        this.gameTime = Mathf.Max(0.0f, gameTime);
     }
 
     public override string ToString()
@@ -54,7 +54,7 @@ public class TEPickUp : TutorialEvent
     public TEPickUp(float gameTime, string pickUpType, float xPosition) : base(gameTime)
     {
         this.pickUpType = pickUpType;
-        this.xPosition = xPosition;
+        this.xPosition = Mathf.Clamp(xPosition, -2.0f, 2.0f);
     }
 
     public override string ToString()
