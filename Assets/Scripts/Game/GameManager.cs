@@ -133,7 +133,6 @@ public class GameManager : MonoBehaviour
     public void TutorialStart()
     {
         this.tutorialRunning = true;
-        GameData.tutorial = false;
 
         this.tutorial.TutorialStart();
         this.gameScreen.TutorialStart();
@@ -142,6 +141,7 @@ public class GameManager : MonoBehaviour
     public void TutorialOver()
     {
         this.tutorialRunning = false;
+        GameData.tutorial = false;
 
         this.tutorial.TutorialOver();
         this.gameScreen.TutorialOver();
@@ -170,7 +170,6 @@ public class GameManager : MonoBehaviour
 
             this.gameRunning = true;
             this.gameTime = 0.0f;
-            GameData.gamesPlayed++;
 
             this.backgroundMusic.Play();
         }
@@ -205,6 +204,7 @@ public class GameManager : MonoBehaviour
         if (this.gameRunning)
         {
             this.gameRunning = false;
+            GameData.gamesPlayed++;
 
             this.inputManager.GameOver();
             this.difficulty.GameOver();
@@ -230,9 +230,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         if (GameData.tutorial == true)
-            TutorialStart();
-
-        if (GameData.gamesPlayed <= 0)
             TutorialStart();
     }
 
