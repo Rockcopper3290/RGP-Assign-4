@@ -69,8 +69,12 @@ public class Tutorial
         this.events.Add(new TESpike  (time + 0.50f, "Right Spike"));
         this.events.Add(new TEInput  (time + 1.70f, "Jump", "", "Jump the Spike, start by swapping sides"));
         this.events.Add(new TEInput  (time + 1.90f, "Jump", "", "Press again to complete Jump"));
+        this.events.Add(new TESpike  (time + 1.25f, "Left Spike"));
+        this.events.Add(new TEPickUp (time + 1.45f, "Coin", -1.0f));
         this.events.Add(new TESpike  (time + 1.50f, "Right Spike"));
-        this.events.Add(new TEPickUp (time + 1.40f, "Coin", -1.0f));
+        this.events.Add(new TESpike  (time + 1.70f, "Left Spike"));
+        this.events.Add(new TESpike  (time + 2.00f, "Left Spike"));
+        this.events.Add(new TESpike  (time + 2.30f, "Left Spike"));
         this.events.Add(new TEInput  (time + 2.70f, "Jump", "", "Jump the Spike and collect Coin"));
         this.events.Add(new TEInput  (time + 2.90f, "Jump", "", "Press again to complete Jump"));
 
