@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1381880787912714111}
   - component: {fileID: 3475400334038366392}
   - component: {fileID: 7931874814738262590}
+  - component: {fileID: 2776209080146036263}
   m_Layer: 0
   m_Name: Display Shield
   m_TagString: Shield
@@ -84,6 +85,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!210 &2776209080146036263
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758301533759946181}
+  m_Enabled: 1
+  m_SortingLayerID: -78773249
+  m_SortingLayer: 4
+  m_SortingOrder: 0
 --- !u!1 &7344093418217948444
 GameObject:
   m_ObjectHideFlags: 0

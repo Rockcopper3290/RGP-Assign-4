@@ -42,7 +42,7 @@ public class GameScreen : MonoBehaviour
     [Space(10)]
 
     // Colors
-    [Header("Color Pallet")]
+    [Header("Colour Palette")]
     [ColorUsageAttribute(false,false)] public Color32 coinColor;
     [ColorUsageAttribute(false,false)] public Color32 shieldColor;
     [ColorUsageAttribute(false,false)] public Color32 invincibleColor;
