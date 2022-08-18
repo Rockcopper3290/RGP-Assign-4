@@ -109,9 +109,9 @@ public class SpikeManager : MonoBehaviour
 
         // Create Spikes
         if (numberOfSpikes >= 1) CreateSpike(spikeType, 0.0f);
-        if (numberOfSpikes >= 2) CreateSpike(spikeType, 2.0f); 
-        if (numberOfSpikes >= 3) CreateSpike(spikeType, 4.0f); 
-        if (numberOfSpikes >= 4) CreateSpike(spikeType, 6.0f);
+        if (numberOfSpikes >= 2) CreateSpike(spikeType, 1.4f); 
+        if (numberOfSpikes >= 3) CreateSpike(spikeType, 2.8f); 
+        if (numberOfSpikes >= 4) CreateSpike(spikeType, 4.2f);
         
         // Schedule the next Spike
         ScheduleNextSpike();
