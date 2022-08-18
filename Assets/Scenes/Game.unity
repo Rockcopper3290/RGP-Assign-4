@@ -668,7 +668,6 @@ GameObject:
   - component: {fileID: 352113409}
   - component: {fileID: 352113408}
   - component: {fileID: 352113407}
-  - component: {fileID: 352113410}
   m_Layer: 5
   m_Name: Tutorial Instructions
   m_TagString: Untagged
@@ -806,8 +805,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -78773249
-  m_SortingLayer: 3
+  m_SortingLayerID: 681466255
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!224 &352113409
@@ -818,7 +817,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352113406}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 0, z: -200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -830,17 +829,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 180}
   m_SizeDelta: {x: 720, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!210 &352113410
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352113406}
-  m_Enabled: 1
-  m_SortingLayerID: 681466255
-  m_SortingLayer: 4
-  m_SortingOrder: 0
 --- !u!1 &376209819
 GameObject:
   m_ObjectHideFlags: 0
@@ -4473,8 +4461,8 @@ Canvas:
   m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: -78773249
+  m_AdditionalShaderChannelsFlag: -1
+  m_SortingLayerID: 681466255
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &2100647315
