@@ -35,8 +35,8 @@ public class GameOverScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.scoreText.text = "Score: " + GameOverData.score.ToString();
-        this.highScoreText.text = "High Score: " + GameOverData.highScore.ToString();
+        this.scoreText.text = "SCORE: " + GameOverData.score.ToString();
+        this.highScoreText.text = "HIGH SCORE: " + GameOverData.highScore.ToString();
         this.clickToReplayText.text = "";
 
         music.Play();
@@ -52,7 +52,7 @@ public class GameOverScreen : MonoBehaviour
 
         if (this.timeSinceStart >= 1.0f)
         {
-            this.clickToReplayText.text = "Click to Replay";
+            this.clickToReplayText.text = "CLICK TO REPLAY";
 
             if (Input.anyKey || Input.anyKeyDown)
                 SceneManager.LoadScene("Game");
