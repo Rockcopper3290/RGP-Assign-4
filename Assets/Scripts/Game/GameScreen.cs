@@ -127,6 +127,9 @@ public class GameScreen : MonoBehaviour
     private void Awake()
     {
         ShowInstructionsView();
+
+        this.tutorialView.SetActive(false);
+        SetTutorialText("");
     }
 
     // Update is called once per frame

@@ -39,18 +39,17 @@ public class Tutorial
         //     Message     - Message to display to player
 
 
-        // Click to start. In Tutorial, Player will always start on the right 
+        // In Tutorial, Player will always start on the right 
         time = 0.0f;
-        this.events.Add(new TEInput  (time + 0.00f, "Jump", "", ""));
         this.events.Add(new TEMessage(time + 0.25f, "Avoid The Spikes"));
         this.events.Add(new TEMessage(time + 1.75f, ""));
 
         // Right Click To move to opposite wall (Player starts on right, ends on right)
         time = 1.0f;
         this.events.Add(new TESpike  (time + 0.00f, "Right Spike"));
-        this.events.Add(new TEInput  (time + 1.25f, "Jump", "Mouse", "Left Click and move to opposite wall"));
+        this.events.Add(new TEInput  (time + 1.25f, "Jump", "", "Swap Sides and avoid the Spike"));
         this.events.Add(new TESpike  (time + 0.80f, "Left Spike"));
-        this.events.Add(new TEInput  (time + 2.05f, "Jump", "Key", "Press Space and move to opposite wall"));
+        this.events.Add(new TEInput  (time + 2.05f, "Jump", "", "Swap Sides and avoid the Spike"));
 
         // Collecting Coins (Player starts on right, ends on right)
         time = 3.5f;
@@ -68,12 +67,12 @@ public class Tutorial
         this.events.Add(new TEMessage(time + 0.00f, "Jump over a spike"));
         this.events.Add(new TEMessage(time + 1.50f, ""));
         this.events.Add(new TESpike  (time + 0.50f, "Right Spike"));
-        this.events.Add(new TEInput  (time + 1.70f, "Jump", "", "Move to the opposite wall"));
-        this.events.Add(new TEInput  (time + 1.90f, "Jump", "Mouse", "Left Click to reverse"));
+        this.events.Add(new TEInput  (time + 1.70f, "Jump", "", "Jump the Spike, start by swapping sides"));
+        this.events.Add(new TEInput  (time + 1.90f, "Jump", "", "Press again to complete Jump"));
         this.events.Add(new TESpike  (time + 1.50f, "Right Spike"));
         this.events.Add(new TEPickUp (time + 1.40f, "Coin", -1.0f));
-        this.events.Add(new TEInput  (time + 2.70f, "Jump", "", "Move to the opposite wall"));
-        this.events.Add(new TEInput  (time + 2.90f, "Jump", "Key", "Press Space to reverse"));
+        this.events.Add(new TEInput  (time + 2.70f, "Jump", "", "Jump the Spike and collect Coin"));
+        this.events.Add(new TEInput  (time + 2.90f, "Jump", "", "Press again to complete Jump"));
 
         // Shield (Player starts on right, ends on left)
         time = 11.00f;

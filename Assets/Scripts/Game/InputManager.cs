@@ -85,7 +85,7 @@ public class InputManager : MonoBehaviour
 
     private bool GetRequiredInput(string name)
     {
-        if (!this.gameManager.TutorialRunning())
+        if (!this.gameManager.GameRunning() || !this.gameManager.TutorialRunning())
             return Input.GetButtonDown(name);
 
         if (this.requiredInput != null)
