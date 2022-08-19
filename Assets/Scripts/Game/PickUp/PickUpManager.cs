@@ -24,6 +24,7 @@ public class PickUpManager : MonoBehaviour
     private GameManager gameManager;
     private DifficultyManager difficulty;
     private SpikeManager spikeManager;
+    private Tutorial tutorial;
 
     // PickUp Management
     private float timeSinceLastPickUp;
@@ -35,6 +36,7 @@ public class PickUpManager : MonoBehaviour
         this.gameManager = gameManager;
         this.difficulty = gameManager.GetDifficultyManager();
         this.spikeManager = gameManager.GetSpikeManager();
+        this.tutorial = gameManager.GetTutorial();
     }
 
     public List<GameObject> PickUps()
@@ -55,38 +57,57 @@ public class PickUpManager : MonoBehaviour
         return false;
     }
 
-    private void CreatePickUp()
+    private void CreatePickUp(string pickUpType, float xPosition, bool checkSpikeDistance = true)
     {
-        GameObject pickup;
-        Vector3 position;
+        GameObject pickUp;
 
-        // Randomly poistion the PickUp across the X-axis
-        position = new Vector3(Random.Range(-2.0f, 2.0f), 15.0f, 0.0f);
+        // PickUp position
+        Vector3 position = new Vector3(xPosition, 15.0f, 0.0f);
 
         // If the PickUp is too close to a Spike, abort this attempt.
-        if (TooCloseToSpike(position))
+        if (checkSpikeDistance && TooCloseToSpike(position))
             return;
 
-        // Do we create an Invicible, Sheild or Coin
-        float prob = Random.Range(0.0f, 1.0f);
-        if (prob <= this.probInvincible)
-            pickup = Instantiate(this.invinciblePrefab);
-        else if (prob <= (this.probInvincible + this.probShield))
-            pickup = Instantiate(this.shieldPrefab);
+        if (pickUpType == "Coin")
+            pickUp = Instantiate(this.coinPrefab);
+        else if (pickUpType == "Invincible")
+            pickUp = Instantiate(this.invinciblePrefab);
+        else if (pickUpType == "Shield")
+            pickUp = Instantiate(this.shieldPrefab);
         else
-            pickup = Instantiate(this.coinPrefab);
+            return;
 
         // Set the Position
-        pickup.transform.position = position;
+        pickUp.transform.position = position;
 
         // Get the PickUp Script from Game Object
-        PickUp pickupScript = pickup.GetComponent<PickUp>();
+        PickUp pickupScript = pickUp.GetComponent<PickUp>();
 
         // Set the PickUp's reference to the Game Manager
         pickupScript.SetGameManager(this.gameManager);
 
         // Add the PickUp to the coins List 
-        this.pickups.Add(pickup);
+        this.pickups.Add(pickUp);
+    }
+
+    private void GeneratePickUp()
+    {
+        string pickUpType;
+        float xPosition;
+
+        // Randomly place the PickUp across the X-axis
+        xPosition = Random.Range(-2.0f, 2.0f);
+
+        // Do we create an Invincible, Sheild or Coin
+        float prob = Random.Range(0.0f, 1.0f);
+        if (prob <= this.probInvincible)
+            pickUpType = "Invincible";
+        else if (prob <= (this.probInvincible + this.probShield))
+            pickUpType = "Shield";
+        else
+            pickUpType = "Coin";
+
+        CreatePickUp(pickUpType, xPosition);
 
         // Schedule the next PickUp
         ScheduleNextPickUp();
@@ -133,13 +154,23 @@ public class PickUpManager : MonoBehaviour
         if (!this.gameManager.GameRunning())
             return;
 
+        if (this.gameManager.TutorialRunning())
+        {
+            TEPickUp pickUpEvent = this.tutorial.GetPickUpEvent();
+
+            if (pickUpEvent != null)
+                CreatePickUp(pickUpEvent.pickUpType, pickUpEvent.xPosition, false);
+
+            return;
+        }
+        
         // Increment the Time Since Last PickUp
         this.timeSinceLastPickUp += Time.deltaTime;
 
         // Is it time for another PickUp ?
         if ((this.timeSinceLastPickUp > this.timeTillNextPickUp) && (this.pickups.Count < this.maxNumberOfPickUps))
         {
-            CreatePickUp();
+            GeneratePickUp();
         }
     }
 }

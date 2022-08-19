@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [Space(10)]
 
     private GameScreen gameScreen;
+    private Tutorial tutorial = new Tutorial();
 
     // Music
     [Header("Music")]
@@ -30,10 +31,11 @@ public class GameManager : MonoBehaviour
     private int spikeScore;
 
     // Game Status
-    private bool gameRunning = false;   // Is the game running
-    private bool gamePaused = false;    // Is the game paused
-    private float gameTime;             // Time the game is running
-
+    private bool gameRunning = false;     // Is the game running
+    private bool tutorialRunning = false; // Is the tutorial running
+    private bool gamePaused = false;      // Is the game paused
+    private float gameTime = 0.0f;        // Time the game is running
+    
     private void Awake() {
         this.gameScreen = gameScreenUI.GetComponent<GameScreen>();
 
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
         this.playerManager.SetGameManager(this);
         this.spikeManager.SetGameManager(this);
         this.pickUpManager.SetGameManager(this);
+        this.tutorial.SetGameManager(this);
     }
 
     public DifficultyManager GetDifficultyManager()
@@ -75,6 +78,11 @@ public class GameManager : MonoBehaviour
         return this.pickUpManager;
     }
 
+    public Tutorial GetTutorial()
+    {
+        return this.tutorial;
+    }
+
     public void BackgroundMusicPause()
     {
         this.backgroundMusic.Pause();
@@ -88,6 +96,11 @@ public class GameManager : MonoBehaviour
     public bool GameRunning()
     {
         return this.gameRunning;
+    }
+
+    public bool TutorialRunning()
+    {
+        return this.tutorialRunning;
     }
 
     public bool GamePaused()
@@ -115,6 +128,23 @@ public class GameManager : MonoBehaviour
     {
         this.spikeScore += GameManager.spikeValue;
         this.gameScreen.PulseScore(color);
+    }
+
+    public void TutorialStart()
+    {
+        this.tutorialRunning = true;
+
+        this.tutorial.TutorialStart();
+        this.gameScreen.TutorialStart();
+    }
+
+    public void TutorialOver()
+    {
+        this.tutorialRunning = false;
+        GameData.tutorial = false;
+
+        this.tutorial.TutorialOver();
+        this.gameScreen.TutorialOver();
     }
 
     public void GameStart()
@@ -174,6 +204,7 @@ public class GameManager : MonoBehaviour
         if (this.gameRunning)
         {
             this.gameRunning = false;
+            GameData.gamesPlayed++;
 
             this.inputManager.GameOver();
             this.difficulty.GameOver();
@@ -198,7 +229,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (GameData.tutorial == true)
+            TutorialStart();
     }
 
     // Update is called once per frame

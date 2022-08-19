@@ -27,6 +27,15 @@ public class SplashScreen: MonoBehaviour
     {
         //splashMusic.Stop();
         
+        GameData.tutorial = true;
+        SceneManager.LoadScene("Game");
+    }
+
+    public void PlayGameNoTutorial()
+    {
+        //splashMusic.Stop();
+
+        GameData.tutorial = false;
         SceneManager.LoadScene("Game");
     }
 
