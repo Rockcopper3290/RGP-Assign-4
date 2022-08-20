@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Movement and Behaviour")]
     [SerializeField] private float moveSpeed = 20.0f;
     [SerializeField] private float invincibleTime = 5.0f;
-    [SerializeField] private float jumpCooldownTime = 5.0f; // Time between Jumps
+    [SerializeField] private float jumpCooldownTime = 3.0f; // Time between Jumps
     [Space(10)]
 
     [Header("Shield")]

@@ -69,17 +69,19 @@ public class Tutorial
         this.events.Add(new TESpike  (time + 0.50f, "Right Spike"));
         this.events.Add(new TEInput  (time + 1.70f, "Jump", "", "Jump the Spike, start by swapping sides"));
         this.events.Add(new TEInput  (time + 1.85f, "Jump", "", "Press again to complete Jump"));
-        this.events.Add(new TESpike  (time + 1.25f, "Left Spike"));
-        this.events.Add(new TEPickUp (time + 1.45f, "Coin", -1.00f));
-        this.events.Add(new TESpike  (time + 1.50f, "Right Spike"));
-        this.events.Add(new TESpike  (time + 1.70f, "Left Spike"));
-        this.events.Add(new TESpike  (time + 1.70f, "Left Spike", 1.40f));
-        this.events.Add(new TESpike  (time + 1.70f, "Left Spike", 2.80f));
-        this.events.Add(new TEInput  (time + 2.70f, "Jump", "", "Jump the Spike and collect Coin"));
-        this.events.Add(new TEInput  (time + 2.85f, "Jump", "", "Press again to complete Jump"));
+        this.events.Add(new TEMessage(time + 2.00f, "You must wait between Jumps"));
+        this.events.Add(new TEMessage(time + 3.75f, ""));
+        this.events.Add(new TESpike  (time + 3.75f, "Left Spike"));
+        this.events.Add(new TEPickUp (time + 3.95f, "Coin", -1.00f));
+        this.events.Add(new TESpike  (time + 4.00f, "Right Spike"));
+        this.events.Add(new TESpike  (time + 4.20f, "Left Spike"));
+        this.events.Add(new TESpike  (time + 4.20f, "Left Spike", 1.40f));
+        this.events.Add(new TESpike  (time + 4.20f, "Left Spike", 2.80f));
+        this.events.Add(new TEInput  (time + 5.20f, "Jump", "", "Jump the Spike and collect Coin"));
+        this.events.Add(new TEInput  (time + 5.35f, "Jump", "", "Press again to complete Jump"));
 
         // Shield (Player starts on right, ends on left)
-        time = 11.00f;
+        time = 13.50f;
         this.events.Add(new TEMessage(time + 0.00f, "Shield protects you"));
         this.events.Add(new TEMessage(time + 1.50f, ""));
         this.events.Add(new TEPickUp (time + 0.50f, "Shield", 0.0f));
@@ -89,7 +91,7 @@ public class Tutorial
         this.events.Add(new TEMessage(time + 3.50f, ""));
 
         // Invincible (Player starts on left, ends on right)
-        time = 16.00f;
+        time = 18.50f;
         this.events.Add(new TEMessage(time + 0.00f, "Invincibility!"));
         this.events.Add(new TEMessage(time + 1.50f, ""));
         this.events.Add(new TEPickUp (time + 0.50f, "Invincible", 0.0f));
@@ -103,7 +105,7 @@ public class Tutorial
         this.events.Add(new TEMessage(time + 4.00f, ""));
 
         // End tutorial with a TEMessage sequence, not a TEInput, or you will get stuck
-        time = 20.00f;
+        time = 22.50f;
         this.events.Add(new TEMessage(time + 0.00f, "Good luck!"));
         this.events.Add(new TEMessage(time + 3.00f, ""));
     }
