@@ -27,12 +27,16 @@ public class PlayerManager : MonoBehaviour
     [Header("Colours")]
     [SerializeField] private Color defaultColour;
     [SerializeField] private Color powerUpColour;
+    [SerializeField] private Color cancelReadyColour;
 
     // Player Properties, Movement
     private Vector3 velocity;
     private Vector3 acceleration;
     private bool isGrounded;
     private bool isMovingLeft;
+    private float _cancelJump = 3.0f;
+    [SerializeField] private float _cancelCooldown = 6.0f; //cooldown timer for cancel
+    
 
     // Player Properties, Invincible
     private bool isInvincible;
@@ -187,6 +191,7 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdateMovement()
     {
+        
         if (isMovingLeft)
         {
             if (this.isGrounded)
@@ -205,11 +210,12 @@ public class PlayerManager : MonoBehaviour
                 // Moving off Right Wall, Do We Get Go Back Click ?
                 if (this.inputManager.GetButtonDown("Jump") &&
                     (transform.position.x >= -2.0f) &&
-                    (acceleration == Vector3.zero))
+                    (acceleration == Vector3.zero) && Time.time > _cancelJump)
                 {
-                    // Go Back to Right Wall
+                    // Go Back to Right Wall and initiate cooldown
                     acceleration = new Vector3(this.moveSpeed * 0.1f, 0.0f, 0.0f);
                     isMovingLeft = false;
+                    _cancelJump = Time.time + _cancelCooldown;
                 }
 
                 // Has the Player reached the Left Wall
@@ -251,37 +257,42 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
+                
                 // Moving off Left Wall, Do We Get Go Back Click ?
                 if (this.inputManager.GetButtonDown("Jump") &&
                     (transform.position.x <= 2.0f) &&
-                    (acceleration == Vector3.zero))
-                {
-                    // Go Back to Left Wall
-                    acceleration = new Vector3(-this.moveSpeed * 0.1f, 0.0f, 0.0f);
-                    isMovingLeft = true;
+                    (acceleration == Vector3.zero) && Time.time > _cancelJump)
+                    {
+                        // Go Back to Left Wall and intiate cooldown
+                        acceleration = new Vector3(-this.moveSpeed * 0.1f, 0.0f, 0.0f);
+                        isMovingLeft = true;
+                        _cancelJump = Time.time + _cancelCooldown;
                 }
 
-                // Has the Player reached the Right Wall
-                if (transform.position.x >= 3.0f)
-                {
-                    // Fix Player position to the Right Wall
-                    transform.position = new Vector3(3.0f, 0.0f, 0.0f);
-                    velocity = Vector3.zero;
-                    acceleration = Vector3.zero;
-                    isGrounded = true;
-                }
-                // The Player is moving Right
-                else
-                {
-                    velocity = Vector3.ClampMagnitude(velocity + acceleration, this.moveSpeed);
-                    Vector3 newPosition = transform.position + (this.velocity * Time.deltaTime);
-                    transform.position = new Vector3(Mathf.Clamp(newPosition.x, -3.0f, 3.0f), newPosition.y, newPosition.z);
+                    // Has the Player reached the Right Wall
+                    if (transform.position.x >= 3.0f)
+                    {
+                        // Fix Player position to the Right Wall
+                        transform.position = new Vector3(3.0f, 0.0f, 0.0f);
+                        velocity = Vector3.zero;
+                        acceleration = Vector3.zero;
+                        isGrounded = true;
+                    }
+                    // The Player is moving Right
+                    else
+                    {
+                        velocity = Vector3.ClampMagnitude(velocity + acceleration, this.moveSpeed);
+                        Vector3 newPosition = transform.position + (this.velocity * Time.deltaTime);
+                        transform.position = new Vector3(Mathf.Clamp(newPosition.x, -3.0f, 3.0f), newPosition.y, newPosition.z);
 
-                    // Rotate as we move
-                    float xPosition = transform.position.x;
-                    float zAngle = Mathf.Lerp(90, -90, ((xPosition + 3.0f) / 6.0f));
-                    transform.eulerAngles = new Vector3(0.0f, 0.0f, zAngle);
-                }
+                        // Rotate as we move
+                        float xPosition = transform.position.x;
+                        float zAngle = Mathf.Lerp(90, -90, ((xPosition + 3.0f) / 6.0f));
+                        transform.eulerAngles = new Vector3(0.0f, 0.0f, zAngle);
+                    }
+
+                
+               
             }
         }
     }
@@ -317,6 +328,18 @@ public class PlayerManager : MonoBehaviour
             this.playerRenderer.material.color =
                 Color.Lerp(this.defaultColour, this.powerUpColour, Mathf.PingPong(Time.time * rate, 1.0f));
         }
+        if (this.isInvincible == false)
+        {
+         if (Time.time > _cancelJump)
+                {
+                    this.playerRenderer.material.color = cancelReadyColour;
+                }
+                else if(Time.time < _cancelJump)
+                {
+                    this.playerRenderer.material.color = defaultColour;
+                }
+        }
+       
     }
 
     void Update()

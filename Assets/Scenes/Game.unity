@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44949412, g: 0.49649048, b: 0.5591459, a: 1}
+  m_IndirectSpecularColor: {r: 0.44949418, g: 0.4964906, b: 0.5591459, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4970,6 +4970,22 @@ PrefabInstance:
       propertyPath: shield
       value: 
       objectReference: {fileID: 18687833}
+    - target: {fileID: 1215558695615659305, guid: ca0ea9b46d59bb94e897e2edfe5cb34d, type: 3}
+      propertyPath: _cancelCooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215558695615659305, guid: ca0ea9b46d59bb94e897e2edfe5cb34d, type: 3}
+      propertyPath: cancelReadyColour.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215558695615659305, guid: ca0ea9b46d59bb94e897e2edfe5cb34d, type: 3}
+      propertyPath: cancelReadyColour.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215558695615659305, guid: ca0ea9b46d59bb94e897e2edfe5cb34d, type: 3}
+      propertyPath: cancelReadyColour.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1215558695615659322, guid: ca0ea9b46d59bb94e897e2edfe5cb34d, type: 3}
       propertyPath: m_RootOrder
       value: 5
