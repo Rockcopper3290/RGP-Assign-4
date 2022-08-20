@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Movement and Behaviour")]
     [SerializeField] private float moveSpeed = 20.0f;
     [SerializeField] private float invincibleTime = 5.0f;
+    [SerializeField] private float jumpCooldownTime = 5.0f; // Time between Jumps
     [Space(10)]
 
     [Header("Shield")]
@@ -26,17 +27,15 @@ public class PlayerManager : MonoBehaviour
     // Colour, Set In Unity Inspector
     [Header("Colours")]
     [SerializeField] private Color defaultColour;
+    [SerializeField] private Color jumpCooldownColour;
     [SerializeField] private Color powerUpColour;
-    [SerializeField] private Color cancelReadyColour;
 
     // Player Properties, Movement
     private Vector3 velocity;
     private Vector3 acceleration;
     private bool isGrounded;
     private bool isMovingLeft;
-    private float _cancelJump = 3.0f;
-    [SerializeField] private float _cancelCooldown = 6.0f; //cooldown timer for cancel
-    
+    private float lastJumpTime;
 
     // Player Properties, Invincible
     private bool isInvincible;
@@ -82,6 +81,9 @@ public class PlayerManager : MonoBehaviour
     
     public void GameStart()
     {
+        // Jump cooldown
+        this.lastJumpTime = Time.time - this.jumpCooldownTime;
+
         // Invincible
         this.isInvincible = false;
         this.invincibleTimeRemaining = 0.0f;
@@ -210,12 +212,13 @@ public class PlayerManager : MonoBehaviour
                 // Moving off Right Wall, Do We Get Go Back Click ?
                 if (this.inputManager.GetButtonDown("Jump") &&
                     (transform.position.x >= -2.0f) &&
-                    (acceleration == Vector3.zero) && Time.time > _cancelJump)
+                    (acceleration == Vector3.zero) &&
+                    (Time.time >= (lastJumpTime + this.jumpCooldownTime)) )
                 {
                     // Go Back to Right Wall and initiate cooldown
+                    lastJumpTime = Time.time;
                     acceleration = new Vector3(this.moveSpeed * 0.1f, 0.0f, 0.0f);
                     isMovingLeft = false;
-                    _cancelJump = Time.time + _cancelCooldown;
                 }
 
                 // Has the Player reached the Left Wall
@@ -257,16 +260,16 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                
                 // Moving off Left Wall, Do We Get Go Back Click ?
                 if (this.inputManager.GetButtonDown("Jump") &&
                     (transform.position.x <= 2.0f) &&
-                    (acceleration == Vector3.zero) && Time.time > _cancelJump)
+                    (acceleration == Vector3.zero) &&
+                    (Time.time >= (lastJumpTime + this.jumpCooldownTime)) )
                     {
                         // Go Back to Left Wall and intiate cooldown
+                        lastJumpTime = Time.time;
                         acceleration = new Vector3(-this.moveSpeed * 0.1f, 0.0f, 0.0f);
                         isMovingLeft = true;
-                        _cancelJump = Time.time + _cancelCooldown;
                 }
 
                     // Has the Player reached the Right Wall
@@ -289,10 +292,7 @@ public class PlayerManager : MonoBehaviour
                         float xPosition = transform.position.x;
                         float zAngle = Mathf.Lerp(90, -90, ((xPosition + 3.0f) / 6.0f));
                         transform.eulerAngles = new Vector3(0.0f, 0.0f, zAngle);
-                    }
-
-                
-               
+                    }             
             }
         }
     }
@@ -328,16 +328,16 @@ public class PlayerManager : MonoBehaviour
             this.playerRenderer.material.color =
                 Color.Lerp(this.defaultColour, this.powerUpColour, Mathf.PingPong(Time.time * rate, 1.0f));
         }
-        if (this.isInvincible == false)
+        else if (this.isShielded)
         {
-         if (Time.time > _cancelJump)
-                {
-                    this.playerRenderer.material.color = cancelReadyColour;
-                }
-                else if(Time.time < _cancelJump)
-                {
-                    this.playerRenderer.material.color = defaultColour;
-                }
+
+        }
+        else
+        {
+            if (Time.time < (lastJumpTime + this.jumpCooldownTime))
+                this.playerRenderer.material.color = jumpCooldownColour;
+            else
+                this.playerRenderer.material.color = defaultColour;
         }
        
     }
