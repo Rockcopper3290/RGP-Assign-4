@@ -10,6 +10,7 @@ public class SplashScreen: MonoBehaviour
     // Set in Unity Inspector
     [SerializeField] private TMP_Text startGameText;
     [SerializeField] private TMP_Text exitButtonText;
+    [SerializeField] private Toggle tutorialToggle;
     [Space(10)]
 
     // Music
@@ -27,15 +28,7 @@ public class SplashScreen: MonoBehaviour
     {
         //splashMusic.Stop();
         
-        GameData.tutorial = true;
-        SceneManager.LoadScene("Game");
-    }
-
-    public void PlayGameNoTutorial()
-    {
-        //splashMusic.Stop();
-
-        GameData.tutorial = false;
+        GameData.tutorial = this.tutorialToggle.isOn;
         SceneManager.LoadScene("Game");
     }
 
@@ -55,6 +48,7 @@ public class SplashScreen: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.tutorialToggle.isOn = GameData.tutorial;
         //splashMusic.Play();
     }
 
