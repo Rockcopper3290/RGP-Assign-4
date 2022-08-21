@@ -47,9 +47,9 @@ public class Tutorial
         // Right Click To move to opposite wall (Player starts on right, ends on right)
         time = 1.0f;
         this.events.Add(new TESpike  (time + 0.00f, "Right Spike"));
-        this.events.Add(new TEInput  (time + 1.25f, "Jump", "", "Swap Sides and avoid the Spike"));
+        this.events.Add(new TEInput  (time + 1.25f, "Jump", "", "Swap Sides to avoid the Spike"));
         this.events.Add(new TESpike  (time + 0.80f, "Left Spike"));
-        this.events.Add(new TEInput  (time + 2.05f, "Jump", "", "Swap Sides and avoid the Spike"));
+        this.events.Add(new TEInput  (time + 2.05f, "Jump", "", "Swap Sides to avoid the Spike"));
 
         // Collecting Coins (Player starts on right, ends on right)
         time = 3.5f;
@@ -101,13 +101,14 @@ public class Tutorial
         this.events.Add(new TEInput  (time + 1.70f, "Jump", "", "Move and become Invincible"));
         this.events.Add(new TESpike  (time + 2.50f, "Left Spike"));
         this.events.Add(new TESpike  (time + 3.00f, "Left Spike"));
-        this.events.Add(new TEMessage(time + 2.00f, "Beware, it wears off!"));
-        this.events.Add(new TEMessage(time + 4.00f, ""));
+        this.events.Add(new TEMessage(time + 2.00f, "1 green spike = 5 points"));
+        this.events.Add(new TEMessage(time + 5.00f, "Beware, it wears off!"));
+        this.events.Add(new TEMessage(time + 7.00f, ""));
 
         // End tutorial with a TEMessage sequence, not a TEInput, or you will get stuck
-        time = 22.50f;
+        time = 25.50f;
         this.events.Add(new TEMessage(time + 0.00f, "Good luck!"));
-        this.events.Add(new TEMessage(time + 3.00f, ""));
+        this.events.Add(new TEMessage(time + 2.00f, ""));
     }
 
     public void SetGameManager(GameManager gameManager)
