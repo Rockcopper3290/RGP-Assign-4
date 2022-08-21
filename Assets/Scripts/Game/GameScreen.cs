@@ -105,11 +105,17 @@ public class GameScreen : MonoBehaviour
     public void TutorialStart()
     {
         this.tutorialView.SetActive(true);
+
+        // Disable Pause during tutorial
+        this.pauseButton.SetActive(false);
     }
 
     public void TutorialOver()
     {
         this.tutorialView.SetActive(false);
+
+        // Reenable Pause
+        this.pauseButton.SetActive(true);
     }
 
     public void SetTutorialText(string text)
