@@ -24,6 +24,8 @@ which was obviously a recreation of the Mario Kart Invincibility music)
 - While the spikes are red, hitting them will cause the player to die
 - The longer a run is the faster the game becomes, and therefore it will become more difficult as time progresses
 - When you collect a power-up and if you already have a power-up, the new power-up will replace your current one
+- When the player jumps/reverses direction/cancels their flip, the player will turn white, which indicates a 3 second cool-down before they can take that action again,
+which is indicated when the player returns to being blue
 
 ## Tutorial
 - You can toggle the tutorial on and off
