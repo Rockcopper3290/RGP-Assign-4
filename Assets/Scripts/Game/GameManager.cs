@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     // Music
     [Header("Music")]
     [SerializeField] private AudioSource backgroundMusic;
+    [SerializeField] private AudioSource startingMusic;
 
     // Score
     private const int coinValue = 10;
@@ -156,6 +157,7 @@ public class GameManager : MonoBehaviour
 
             // Ensure AudioListener is Running
             AudioListener.pause = false;
+            this.startingMusic.Stop();
 
             // Score
             this.coinScore = 0;
@@ -229,13 +231,16 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.startingMusic.Play();
+
         if (GameData.tutorial == true)
             TutorialStart();
     }
 
     // Update is called once per frame
     void Update()
-    {       
+    {
+
         if (!this.gameRunning)
         {
             if (this.inputManager.GetButtonDown("Jump"))

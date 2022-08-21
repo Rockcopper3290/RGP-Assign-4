@@ -49,7 +49,7 @@ public class SplashScreen: MonoBehaviour
     void Start()
     {
         this.tutorialToggle.isOn = GameData.tutorial;
-        //splashMusic.Play();
+       splashMusic.Play();
     }
 
     // Update is called once per frame
