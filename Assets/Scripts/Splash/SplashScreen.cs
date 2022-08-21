@@ -17,16 +17,9 @@ public class SplashScreen: MonoBehaviour
     [Header("Music")]
     [SerializeField] private AudioSource splashMusic;
 
-    public void Tutorial()
-    {
-        //splashMusic.Stop();
-        
-        SceneManager.LoadScene("Game");
-    }
-
     public void PlayGame()
     {
-        //splashMusic.Stop();
+        splashMusic.Stop();
         
         GameData.tutorial = this.tutorialToggle.isOn;
         SceneManager.LoadScene("Game");
@@ -34,7 +27,7 @@ public class SplashScreen: MonoBehaviour
 
     public void QuitGame()
     {
-        //splashMusic.Stop();
+        splashMusic.Stop();
         
         Application.Quit();
     }
@@ -48,7 +41,7 @@ public class SplashScreen: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.tutorialToggle.isOn = GameData.tutorial;
+       this.tutorialToggle.isOn = GameData.tutorial;
        splashMusic.Play();
     }
 
