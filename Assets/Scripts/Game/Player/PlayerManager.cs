@@ -328,10 +328,6 @@ public class PlayerManager : MonoBehaviour
             this.playerRenderer.material.color =
                 Color.Lerp(this.defaultColour, this.powerUpColour, Mathf.PingPong(Time.time * rate, 1.0f));
         }
-        else if (this.isShielded)
-        {
-
-        }
         else
         {
             if (Time.time < (lastJumpTime + this.jumpCooldownTime))
