@@ -96,11 +96,11 @@ public class Tutorial
         this.events.Add(new TEMessage(time + 1.50f, ""));
         this.events.Add(new TEPickUp (time + 0.50f, "Invincible", 0.0f));
         this.events.Add(new TESpike  (time + 1.50f, "Right Spike"));
-        this.events.Add(new TESpike  (time + 1.75f, "Right Spike"));
-        this.events.Add(new TESpike  (time + 2.00f, "Right Spike"));
+        this.events.Add(new TESpike  (time + 1.50f, "Right Spike", 1.40f));
+        this.events.Add(new TESpike  (time + 1.50f, "Right Spike", 2.80f));
         this.events.Add(new TEInput  (time + 1.70f, "Jump", "", "Move and become Invincible"));
         this.events.Add(new TESpike  (time + 2.50f, "Left Spike"));
-        this.events.Add(new TESpike  (time + 3.00f, "Left Spike"));
+        this.events.Add(new TESpike  (time + 2.50f, "Left Spike", 1.40f));
         this.events.Add(new TEMessage(time + 2.00f, "1 green spike = 5 points"));
         this.events.Add(new TEMessage(time + 5.00f, "Beware, it wears off!"));
         this.events.Add(new TEMessage(time + 7.00f, ""));
